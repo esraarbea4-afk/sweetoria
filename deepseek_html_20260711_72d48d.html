@@ -1,0 +1,3562 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sweetoria — Magic in Every Bite</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Baloo+2:wght@400;500;600;700;800&family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #FEF7F7;
+    --blush: #F2AAB4;
+    --pink: #F27296;
+    --magenta: #F6497F;
+    --berry: #CF2B5A;
+    --lilac: #F0B6DF;
+    --ink: #5A1030;
+    --white: #ffffff;
+    --shadow: 0 10px 30px rgba(207, 43, 90, .15);
+    --radius: 26px;
+    --gold: #FFD700;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Cairo', 'Baloo 2', sans-serif;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  h1,
+  h2,
+  h3,
+  .display {
+    font-family: 'Baloo 2', 'Fredoka', sans-serif;
+    font-weight: 800;
+  }
+  body.lang-ar h1,
+  body.lang-ar h2,
+  body.lang-ar h3,
+  body.lang-ar .display {
+    font-family: 'Cairo', sans-serif;
+    font-weight: 800;
+  }
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+  ul {
+    list-style: none;
+  }
+  button {
+    font-family: inherit;
+    cursor: pointer;
+    border: none;
+  }
+  img {
+    max-width: 100%;
+    display: block;
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image:
+      radial-gradient(circle at 8% 15%, rgba(242, 170, 180, .35) 0, transparent 45%),
+      radial-gradient(circle at 92% 25%, rgba(240, 182, 223, .35) 0, transparent 45%),
+      radial-gradient(circle at 15% 85%, rgba(246, 73, 127, .15) 0, transparent 40%),
+      radial-gradient(circle at 90% 90%, rgba(242, 114, 150, .2) 0, transparent 40%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .wrap {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ===== NAV ===== */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(254, 247, 247, .88);
+    backdrop-filter: blur(10px);
+    border-bottom: 2px solid rgba(242, 114, 150, .25);
+  }
+  nav.wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 24px;
+    gap: 16px;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .brand img {
+    height: 52px;
+    width: auto;
+  }
+  .nav-links {
+    display: flex;
+    gap: 28px;
+    align-items: center;
+  }
+  .nav-links a {
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--berry);
+    position: relative;
+    padding: 6px 0;
+    transition: color .2s;
+  }
+  .nav-links a::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--magenta);
+    border-radius: 3px;
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform .25s;
+  }
+  .nav-links a:hover {
+    color: var(--magenta);
+  }
+  .nav-links a:hover::after {
+    transform: scaleX(1);
+  }
+
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .lang-switch {
+    display: flex;
+    background: var(--white);
+    border-radius: 999px;
+    padding: 4px;
+    box-shadow: var(--shadow);
+    gap: 2px;
+  }
+  .lang-switch button {
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 13px;
+    background: transparent;
+    color: var(--berry);
+    transition: all .2s;
+  }
+  .lang-switch button.active {
+    background: var(--berry);
+    color: #fff;
+  }
+
+  .cart-btn {
+    position: relative;
+    background: var(--berry);
+    color: #fff;
+    border-radius: 999px;
+    padding: 10px 20px;
+    font-weight: 700;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: var(--shadow);
+    transition: transform .2s;
+  }
+  .cart-btn:hover {
+    transform: translateY(-2px);
+  }
+  .cart-count {
+    background: #fff;
+    color: var(--berry);
+    border-radius: 999px;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 800;
+  }
+
+  .burger {
+    display: none;
+    background: none;
+    font-size: 26px;
+    color: var(--berry);
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    position: relative;
+    padding: 70px 0 40px;
+    overflow: hidden;
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.1fr .9fr;
+    gap: 40px;
+    align-items: center;
+  }
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--white);
+    color: var(--berry);
+    padding: 8px 16px;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 13px;
+    box-shadow: var(--shadow);
+    margin-bottom: 18px;
+  }
+  .eyebrow .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--magenta);
+    animation: pulse 1.6s infinite;
+  }
+  @keyframes pulse {
+    0%,
+    100% {
+      opacity: 1
+    }
+    50% {
+      opacity: .3
+    }
+  }
+
+  .hero h1 {
+    font-size: clamp(38px, 5.5vw, 66px);
+    line-height: 1.05;
+    color: var(--berry);
+    margin-bottom: 18px;
+  }
+  .hero h1 span {
+    color: var(--magenta);
+  }
+  .hero p.lead {
+    font-size: 18px;
+    color: #8a3a55;
+    max-width: 520px;
+    line-height: 1.7;
+    margin-bottom: 28px;
+  }
+  .hero-ctas {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .btn-primary {
+    background: var(--magenta);
+    color: #fff;
+    padding: 16px 30px;
+    border-radius: 999px;
+    font-weight: 800;
+    font-size: 16px;
+    box-shadow: 0 12px 24px rgba(246, 73, 127, .35);
+    transition: transform .2s, box-shadow .2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 16px 30px rgba(246, 73, 127, .45);
+  }
+  .btn-outline {
+    background: transparent;
+    color: var(--berry);
+    padding: 16px 30px;
+    border-radius: 999px;
+    font-weight: 800;
+    font-size: 16px;
+    border: 2.5px solid var(--berry);
+    transition: all .2s;
+  }
+  .btn-outline:hover {
+    background: var(--berry);
+    color: #fff;
+  }
+
+  .hero-art {
+    position: relative;
+  }
+  .hero-art img {
+    width: 100%;
+    max-width: 480px;
+    margin: 0 auto;
+    filter: drop-shadow(0 20px 30px rgba(207, 43, 90, .25));
+  }
+  .float-badge {
+    position: absolute;
+    background: #fff;
+    border-radius: 20px;
+    padding: 12px 18px;
+    box-shadow: var(--shadow);
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--berry);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    animation: float 3.5s ease-in-out infinite;
+  }
+  .float-badge.b1 {
+    top: 8%;
+    right: -4%;
+    animation-delay: 0s;
+  }
+  .float-badge.b2 {
+    bottom: 12%;
+    left: -6%;
+    animation-delay: 1.2s;
+  }
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0)
+    }
+    50% {
+      transform: translateY(-12px)
+    }
+  }
+
+  /* section headers */
+  .section {
+    padding: 90px 0;
+    position: relative;
+  }
+  .section-head {
+    text-align: center;
+    max-width: 640px;
+    margin: 0 auto 50px;
+  }
+  .section-head .tag {
+    color: var(--magenta);
+    font-weight: 800;
+    letter-spacing: .5px;
+    font-size: 14px;
+    display: block;
+    margin-bottom: 10px;
+  }
+  .section-head h2 {
+    font-size: clamp(28px, 4vw, 42px);
+    color: var(--berry);
+    margin-bottom: 14px;
+  }
+  .section-head p {
+    color: #8a3a55;
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  /* ===== GAME SECTION ===== */
+  .game-section {
+    background: linear-gradient(160deg, var(--berry), var(--magenta) 60%, var(--pink));
+    border-radius: 40px;
+    margin: 0 24px;
+    padding: 70px 40px;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+  }
+  .game-section::before,
+  .game-section::after {
+    content: "🍭";
+    position: absolute;
+    font-size: 120px;
+    opacity: .12;
+  }
+  .game-section::before {
+    top: -30px;
+    left: -20px;
+    transform: rotate(-15deg);
+  }
+  .game-section::after {
+    bottom: -40px;
+    right: -10px;
+    transform: rotate(20deg);
+  }
+
+  .game-wrap {
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+  }
+  .game-head {
+    text-align: center;
+    margin-bottom: 34px;
+  }
+  .game-head .tag {
+    color: var(--lilac);
+    font-weight: 800;
+    font-size: 14px;
+    letter-spacing: 1px;
+  }
+  .game-head h2 {
+    font-size: clamp(28px, 4vw, 40px);
+    margin: 10px 0 12px;
+  }
+  .game-head p {
+    opacity: .9;
+    max-width: 560px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  .countdown {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    margin: 30px 0 38px;
+    flex-wrap: wrap;
+  }
+  .cd-box {
+    background: rgba(255, 255, 255, .15);
+    border: 1px solid rgba(255, 255, 255, .3);
+    border-radius: 16px;
+    padding: 14px 18px;
+    min-width: 78px;
+    text-align: center;
+    backdrop-filter: blur(6px);
+  }
+  .cd-box .num {
+    font-size: 28px;
+    font-weight: 800;
+    font-family: 'Baloo 2', sans-serif;
+  }
+  .cd-box .label {
+    font-size: 11px;
+    opacity: .85;
+    margin-top: 2px;
+  }
+
+  .memory-board {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    max-width: 520px;
+    margin: 0 auto 26px;
+  }
+  .mem-card {
+    aspect-ratio: 1;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, .15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    cursor: pointer;
+    transition: transform .25s;
+    border: 2px solid rgba(255, 255, 255, .35);
+    user-select: none;
+  }
+  .mem-card:hover {
+    transform: scale(1.05);
+  }
+  .mem-card.flipped {
+    background: #fff;
+    color: var(--berry);
+  }
+  .mem-card.matched {
+    background: var(--lilac);
+    color: var(--berry);
+    opacity: .6;
+    cursor: default;
+  }
+
+  .game-status {
+    text-align: center;
+    font-weight: 700;
+    margin-bottom: 18px;
+    min-height: 26px;
+  }
+  .game-controls {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .btn-white {
+    background: #fff;
+    color: var(--berry);
+    padding: 14px 28px;
+    border-radius: 999px;
+    font-weight: 800;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, .15);
+    transition: transform .2s;
+  }
+  .btn-white:hover {
+    transform: translateY(-2px);
+  }
+  .btn-ghost-white {
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, .6);
+    color: #fff;
+    padding: 14px 28px;
+    border-radius: 999px;
+    font-weight: 800;
+  }
+
+  .prize-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(90, 16, 48, .55);
+    z-index: 999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .prize-modal-overlay.show {
+    display: flex;
+  }
+  .prize-modal {
+    background: #fff;
+    border-radius: 28px;
+    padding: 44px 36px;
+    max-width: 420px;
+    text-align: center;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, .3);
+    animation: pop .35s ease;
+  }
+  @keyframes pop {
+    from {
+      transform: scale(.8);
+      opacity: 0
+    }
+    to {
+      transform: scale(1);
+      opacity: 1
+    }
+  }
+  .prize-modal .icon {
+    font-size: 56px;
+    margin-bottom: 14px;
+  }
+  .prize-modal h3 {
+    color: var(--berry);
+    font-size: 26px;
+    margin-bottom: 10px;
+  }
+  .prize-modal p {
+    color: #8a3a55;
+    line-height: 1.7;
+    margin-bottom: 22px;
+  }
+  .prize-code {
+    background: var(--cream);
+    border: 2px dashed var(--pink);
+    border-radius: 14px;
+    padding: 14px;
+    font-weight: 800;
+    color: var(--berry);
+    font-size: 20px;
+    letter-spacing: 2px;
+    margin-bottom: 22px;
+  }
+
+  /* ===== SHOP ===== */
+  .filter-bar {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+  }
+  .filter-chip {
+    background: #fff;
+    color: var(--berry);
+    padding: 10px 20px;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 14px;
+    border: 2px solid transparent;
+    box-shadow: var(--shadow);
+    transition: all .2s;
+  }
+  .filter-chip.active,
+  .filter-chip:hover {
+    background: var(--berry);
+    color: #fff;
+  }
+
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 26px;
+  }
+  .product-card {
+    background: #fff;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: transform .25s, box-shadow .25s;
+    display: flex;
+    flex-direction: column;
+  }
+  .product-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 40px rgba(207, 43, 90, .22);
+  }
+  .product-img {
+    height: 170px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 70px;
+    position: relative;
+  }
+  .product-badge {
+    position: absolute;
+    top: 12px;
+    inset-inline-start: 12px;
+    background: var(--magenta);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 800;
+    padding: 5px 12px;
+    border-radius: 999px;
+  }
+  .product-body {
+    padding: 18px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+  }
+  .product-body h4 {
+    font-size: 17px;
+    color: var(--berry);
+  }
+  .product-body p {
+    font-size: 13px;
+    color: #a9748c;
+    line-height: 1.5;
+    flex: 1;
+  }
+  .product-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 8px;
+  }
+  .price {
+    font-weight: 800;
+    color: var(--berry);
+    font-size: 18px;
+  }
+  .add-btn {
+    background: var(--pink);
+    color: #fff;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all .2s;
+  }
+  .add-btn:hover {
+    background: var(--berry);
+    transform: rotate(90deg);
+  }
+
+  /* ===== CAKE DESIGNER ===== */
+  .designer-section {
+    background: var(--white);
+    border-radius: 40px;
+    margin: 0 24px;
+    padding: 70px 40px;
+    box-shadow: var(--shadow);
+  }
+  .designer-grid {
+    display: grid;
+    grid-template-columns: 1.3fr .9fr;
+    gap: 40px;
+    align-items: start;
+  }
+  .canvas-wrap {
+    background: var(--cream);
+    border-radius: 24px;
+    padding: 20px;
+    border: 2px solid var(--blush);
+  }
+  #cakeCanvas {
+    width: 100%;
+    aspect-ratio: 1/1;
+    background: #fff;
+    border-radius: 16px;
+    touch-action: none;
+    box-shadow: inset 0 0 0 2px rgba(242, 170, 180, .4);
+    cursor: crosshair;
+  }
+  .canvas-tools {
+    display: flex;
+    gap: 10px;
+    margin-top: 14px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .swatch {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 3px solid #fff;
+    box-shadow: 0 0 0 2px rgba(0, 0, 0, .08);
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .swatch.active {
+    box-shadow: 0 0 0 3px var(--berry);
+  }
+  .tool-btn {
+    background: #fff;
+    border: 2px solid var(--blush);
+    color: var(--berry);
+    border-radius: 12px;
+    padding: 8px 14px;
+    font-weight: 700;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .tool-btn.active {
+    background: var(--berry);
+    color: #fff;
+    border-color: var(--berry);
+  }
+  input[type=range] {
+    accent-color: var(--berry);
+  }
+
+  .helper-tools h3 {
+    color: var(--berry);
+    font-size: 20px;
+    margin-bottom: 6px;
+  }
+  .helper-tools>p {
+    color: #a9748c;
+    font-size: 14px;
+    margin-bottom: 20px;
+    line-height: 1.6;
+  }
+  .helper-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: var(--cream);
+    border-radius: 16px;
+    padding: 14px;
+    margin-bottom: 12px;
+  }
+  .helper-item .hicon {
+    font-size: 28px;
+  }
+  .helper-item .hinfo {
+    flex: 1;
+  }
+  .helper-item .hinfo strong {
+    display: block;
+    color: var(--berry);
+    font-size: 14px;
+  }
+  .helper-item .hinfo span {
+    font-size: 12px;
+    color: #a9748c;
+  }
+  .helper-item .hprice {
+    font-weight: 800;
+    color: var(--berry);
+    font-size: 14px;
+  }
+  .helper-item button {
+    background: var(--pink);
+    color: #fff;
+    border-radius: 10px;
+    padding: 6px 12px;
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .designer-cta {
+    margin-top: 22px;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  /* ===== ORDER FORM ===== */
+  .order-section {
+    padding: 90px 0;
+  }
+  .order-card {
+    max-width: 840px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 32px;
+    padding: 44px;
+    box-shadow: var(--shadow);
+    position: relative;
+    overflow: hidden;
+  }
+  .order-steps {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 36px;
+    gap: 10px;
+  }
+  .step {
+    flex: 1;
+    text-align: center;
+    position: relative;
+  }
+  .step .circle {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--cream);
+    color: var(--berry);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    margin: 0 auto 8px;
+    border: 2px solid var(--blush);
+    transition: all .2s;
+  }
+  .step.active .circle {
+    background: var(--berry);
+    color: #fff;
+    border-color: var(--berry);
+  }
+  .step .slabel {
+    font-size: 12px;
+    color: #a9748c;
+    font-weight: 700;
+  }
+  .step.active .slabel {
+    color: var(--berry);
+  }
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+  }
+  .form-grid.full {
+    grid-template-columns: 1fr;
+  }
+  .field label {
+    display: block;
+    font-weight: 700;
+    color: var(--berry);
+    font-size: 13px;
+    margin-bottom: 6px;
+  }
+  .field input,
+  .field select,
+  .field textarea {
+    width: 100%;
+    padding: 13px 16px;
+    border-radius: 14px;
+    border: 2px solid rgba(242, 170, 180, .4);
+    font-family: inherit;
+    font-size: 14px;
+    color: var(--ink);
+    background: var(--cream);
+    transition: border-color .2s;
+  }
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus {
+    outline: none;
+    border-color: var(--magenta);
+  }
+  .field.span2 {
+    grid-column: 1 / -1;
+  }
+
+  .delivery-options {
+    display: flex;
+    gap: 14px;
+    margin-top: 6px;
+    flex-wrap: wrap;
+  }
+  .delivery-opt {
+    flex: 1;
+    min-width: 150px;
+    border: 2px solid rgba(242, 170, 180, .4);
+    border-radius: 16px;
+    padding: 16px;
+    cursor: pointer;
+    transition: all .2s;
+    text-align: center;
+  }
+  .delivery-opt.selected {
+    border-color: var(--berry);
+    background: var(--cream);
+  }
+  .delivery-opt .dicon {
+    font-size: 26px;
+    margin-bottom: 6px;
+  }
+  .delivery-opt strong {
+    display: block;
+    color: var(--berry);
+    font-size: 14px;
+  }
+  .delivery-opt span {
+    font-size: 12px;
+    color: #a9748c;
+  }
+
+  .payment-options {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-top: 6px;
+  }
+  .pay-opt {
+    flex: 1;
+    min-width: 130px;
+    border: 2px solid rgba(242, 170, 180, .4);
+    border-radius: 16px;
+    padding: 14px;
+    text-align: center;
+    cursor: pointer;
+    transition: all .2s;
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--berry);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+  .pay-opt.selected {
+    border-color: var(--berry);
+    background: var(--cream);
+  }
+  .pay-opt .picon {
+    font-size: 22px;
+  }
+
+  .order-summary {
+    background: var(--cream);
+    border-radius: 18px;
+    padding: 20px;
+    margin-top: 26px;
+  }
+  .order-summary .row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    color: #8a3a55;
+    margin-bottom: 8px;
+  }
+  .order-summary .row.total {
+    font-weight: 800;
+    color: var(--berry);
+    font-size: 18px;
+    border-top: 2px dashed var(--blush);
+    padding-top: 12px;
+    margin-top: 8px;
+  }
+
+  .cart-empty {
+    text-align: center;
+    color: #a9748c;
+    padding: 20px;
+    font-size: 14px;
+  }
+  .cart-line {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(242, 170, 180, .3);
+    font-size: 14px;
+  }
+  .cart-line .cl-name {
+    font-weight: 700;
+    color: var(--berry);
+  }
+  .cart-line .cl-remove {
+    color: var(--magenta);
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  /* ===== FOOTER ===== */
+  footer {
+    background: var(--berry);
+    color: #fff;
+    margin-top: 60px;
+    padding: 60px 0 24px;
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 40px;
+  }
+  .footer-brand img {
+    height: 60px;
+    filter: brightness(0) invert(1);
+    margin-bottom: 14px;
+  }
+  .footer-brand p {
+    opacity: .85;
+    font-size: 14px;
+    line-height: 1.7;
+    max-width: 280px;
+  }
+  .footer-col h5 {
+    font-size: 14px;
+    margin-bottom: 16px;
+    letter-spacing: .5px;
+    opacity: .9;
+  }
+  .footer-col a {
+    display: block;
+    font-size: 14px;
+    opacity: .8;
+    margin-bottom: 10px;
+    transition: opacity .2s;
+  }
+  .footer-col a:hover {
+    opacity: 1;
+    text-decoration: underline;
+  }
+  .footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, .2);
+    padding-top: 22px;
+    text-align: center;
+    font-size: 13px;
+    opacity: .75;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .footer-bottom .dev {
+    font-weight: 700;
+    opacity: .95;
+  }
+
+  /* ===== COUPON BANNER ===== */
+  .coupon-banner {
+    background: repeating-linear-gradient(135deg, var(--berry), var(--berry) 18px, var(--magenta) 18px, var(--magenta) 36px);
+    border-radius: 28px;
+    margin: 0 24px;
+    padding: 26px 30px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    text-align: center;
+    box-shadow: var(--shadow);
+  }
+  .coupon-banner .cticon {
+    font-size: 32px;
+  }
+  .coupon-banner strong {
+    font-size: 17px;
+    display: block;
+  }
+  .coupon-banner span.sub {
+    font-size: 13px;
+    opacity: .9;
+  }
+  .coupon-progress {
+    width: 100%;
+    max-width: 320px;
+    height: 10px;
+    background: rgba(255, 255, 255, .3);
+    border-radius: 999px;
+    overflow: hidden;
+    margin-top: 10px;
+  }
+  .coupon-progress-fill {
+    height: 100%;
+    background: #fff;
+    border-radius: 999px;
+    width: 0%;
+    transition: width .4s;
+  }
+
+  /* ===== ABOUT / VALUES ===== */
+  .values-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 22px;
+  }
+  .value-card {
+    background: #fff;
+    border-radius: 22px;
+    padding: 28px 22px;
+    text-align: center;
+    box-shadow: var(--shadow);
+    transition: transform .25s;
+  }
+  .value-card:hover {
+    transform: translateY(-6px);
+  }
+  .value-card .vicon {
+    font-size: 38px;
+    margin-bottom: 14px;
+  }
+  .value-card h4 {
+    color: var(--berry);
+    font-size: 16px;
+    margin-bottom: 8px;
+  }
+  .value-card p {
+    font-size: 13px;
+    color: #a9748c;
+    line-height: 1.6;
+  }
+
+  /* ===== VIDEO / RECIPES SECTION ===== */
+  .video-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .video-card {
+    background: #fff;
+    border-radius: 22px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: transform .25s;
+  }
+  .video-card:hover {
+    transform: translateY(-5px);
+  }
+  .video-thumb {
+    aspect-ratio: 16/10;
+    background: linear-gradient(135deg, var(--blush), var(--pink));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    cursor: pointer;
+    color: #fff;
+  }
+  .video-thumb .play-circle {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, .9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    color: var(--berry);
+    transition: transform .2s;
+    position: absolute;
+  }
+  .video-thumb:hover .play-circle {
+    transform: scale(1.12);
+  }
+  .video-body {
+    padding: 16px 18px;
+  }
+  .video-body h4 {
+    color: var(--berry);
+    font-size: 15px;
+    margin-bottom: 6px;
+  }
+  .video-body p {
+    font-size: 12px;
+    color: #a9748c;
+    line-height: 1.5;
+  }
+  .video-tag {
+    display: inline-block;
+    background: var(--cream);
+    color: var(--berry);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 999px;
+    margin-top: 8px;
+  }
+
+  .video-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(90, 16, 48, .75);
+    z-index: 999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .video-modal-overlay.show {
+    display: flex;
+  }
+  .video-modal {
+    width: 100%;
+    max-width: 720px;
+    background: #000;
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+  }
+  .video-modal iframe,
+  .video-modal .video-placeholder {
+    width: 100%;
+    aspect-ratio: 16/9;
+    display: block;
+    border: 0;
+  }
+  .video-placeholder {
+    background: linear-gradient(135deg, var(--berry), var(--magenta));
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    text-align: center;
+    padding: 20px;
+  }
+  .video-close {
+    position: absolute;
+    top: 12px;
+    inset-inline-end: 12px;
+    background: #fff;
+    color: var(--berry);
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    font-weight: 800;
+    z-index: 2;
+  }
+
+  /* ===== SHAPE STAMPS (designer) ===== */
+  .stamp-tools {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+  }
+  .stamp-btn {
+    background: #fff;
+    border: 2px solid var(--blush);
+    border-radius: 12px;
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: var(--berry);
+    transition: all .2s;
+  }
+  .stamp-btn:hover {
+    background: var(--blush);
+  }
+  .stamp-btn.active {
+    background: var(--berry);
+    color: #fff;
+    border-color: var(--berry);
+  }
+  .mode-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 12px;
+  }
+  .mode-row .mlabel {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--berry);
+  }
+
+  /* ===== COUNTRY SELECT ===== */
+  .country-field select {
+    cursor: pointer;
+  }
+
+  /* ===== TOAST ===== */
+  .toast {
+    position: fixed;
+    bottom: 24px;
+    inset-inline-end: 24px;
+    background: var(--berry);
+    color: #fff;
+    padding: 14px 22px;
+    border-radius: 14px;
+    font-weight: 700;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .25);
+    z-index: 1000;
+    transform: translateY(120%);
+    transition: transform .35s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .toast.show {
+    transform: translateY(0);
+  }
+
+  /* ===== NEW SECTIONS STYLES ===== */
+
+  /* --- 1. ABOUT US --- */
+  .about-story {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+  }
+  .about-story .story-text h3 {
+    color: var(--berry);
+    font-size: 26px;
+    margin-bottom: 16px;
+  }
+  .about-story .story-text p {
+    color: #8a3a55;
+    line-height: 1.8;
+    font-size: 15px;
+    margin-bottom: 14px;
+  }
+  .about-story .story-img {
+    background: linear-gradient(135deg, var(--blush), var(--lilac));
+    border-radius: 28px;
+    aspect-ratio: 4/3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 80px;
+    box-shadow: var(--shadow);
+  }
+
+  /* --- 2. TESTIMONIALS --- */
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .testimonial-card {
+    background: #fff;
+    border-radius: 22px;
+    padding: 26px 22px;
+    box-shadow: var(--shadow);
+    text-align: center;
+  }
+  .testimonial-card .stars {
+    color: var(--gold);
+    font-size: 20px;
+    margin-bottom: 8px;
+  }
+  .testimonial-card .tquote {
+    font-size: 14px;
+    color: #8a3a55;
+    line-height: 1.7;
+    margin-bottom: 12px;
+  }
+  .testimonial-card .tname {
+    font-weight: 800;
+    color: var(--berry);
+    font-size: 14px;
+  }
+  .testimonial-card .trole {
+    font-size: 12px;
+    color: #a9748c;
+  }
+  .testimonial-card .timg {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: var(--blush);
+    margin: 0 auto 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+  }
+
+  /* --- 3. FAQ --- */
+  .faq-list {
+    max-width: 740px;
+    margin: 0 auto;
+  }
+  .faq-item {
+    background: #fff;
+    border-radius: 16px;
+    margin-bottom: 12px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+  }
+  .faq-q {
+    padding: 16px 22px;
+    font-weight: 800;
+    color: var(--berry);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 15px;
+  }
+  .faq-q .icon {
+    transition: transform .3s;
+  }
+  .faq-q.open .icon {
+    transform: rotate(180deg);
+  }
+  .faq-a {
+    padding: 0 22px 16px;
+    color: #8a3a55;
+    font-size: 14px;
+    line-height: 1.7;
+    display: none;
+  }
+  .faq-a.open {
+    display: block;
+  }
+
+  /* --- 4. BUNDLES / OFFERS --- */
+  .bundles-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .bundle-card {
+    background: #fff;
+    border-radius: 22px;
+    padding: 28px 22px;
+    box-shadow: var(--shadow);
+    text-align: center;
+    border: 2px solid transparent;
+    transition: all .25s;
+  }
+  .bundle-card:hover {
+    border-color: var(--magenta);
+    transform: translateY(-5px);
+  }
+  .bundle-card .bicon {
+    font-size: 48px;
+    margin-bottom: 12px;
+  }
+  .bundle-card h4 {
+    color: var(--berry);
+    font-size: 17px;
+    margin-bottom: 6px;
+  }
+  .bundle-card p {
+    color: #a9748c;
+    font-size: 13px;
+    line-height: 1.6;
+    margin-bottom: 12px;
+  }
+  .bundle-card .bprice {
+    font-weight: 800;
+    color: var(--berry);
+    font-size: 18px;
+  }
+  .bundle-card .bold {
+    font-size: 12px;
+    color: #a9748c;
+    text-decoration: line-through;
+    margin-inline-start: 8px;
+  }
+
+  /* --- 5. BLOG / RECIPES --- */
+  .blog-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .blog-card {
+    background: #fff;
+    border-radius: 22px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: transform .25s;
+  }
+  .blog-card:hover {
+    transform: translateY(-5px);
+  }
+  .blog-img {
+    height: 160px;
+    background: linear-gradient(135deg, var(--lilac), var(--pink));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 50px;
+  }
+  .blog-body {
+    padding: 18px 20px;
+  }
+  .blog-body .btag {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--magenta);
+    display: block;
+    margin-bottom: 4px;
+  }
+  .blog-body h4 {
+    color: var(--berry);
+    font-size: 16px;
+    margin-bottom: 6px;
+  }
+  .blog-body p {
+    color: #a9748c;
+    font-size: 13px;
+    line-height: 1.6;
+  }
+  .blog-body .read-more {
+    display: inline-block;
+    margin-top: 10px;
+    color: var(--magenta);
+    font-weight: 700;
+    font-size: 13px;
+  }
+
+  /* --- 6. LOYALTY PROGRAM --- */
+  .loyalty-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+  .loyalty-card {
+    background: #fff;
+    border-radius: 22px;
+    padding: 24px 18px;
+    text-align: center;
+    box-shadow: var(--shadow);
+  }
+  .loyalty-card .licon {
+    font-size: 36px;
+    margin-bottom: 8px;
+  }
+  .loyalty-card h4 {
+    color: var(--berry);
+    font-size: 15px;
+  }
+  .loyalty-card p {
+    color: #a9748c;
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  /* --- 7. CHILDREN CERTIFICATE --- */
+  .certificate-section {
+    background: linear-gradient(135deg, var(--cream), var(--lilac));
+    border-radius: 40px;
+    padding: 60px 40px;
+    margin: 0 24px;
+    text-align: center;
+  }
+  .certificate-section h2 {
+    color: var(--berry);
+    font-size: 32px;
+    margin-bottom: 10px;
+  }
+  .certificate-section p {
+    color: #8a3a55;
+    max-width: 600px;
+    margin: 0 auto 30px;
+    line-height: 1.7;
+  }
+  .certificate-preview {
+    background: #fff;
+    border-radius: 24px;
+    padding: 40px;
+    max-width: 500px;
+    margin: 0 auto;
+    box-shadow: var(--shadow);
+    border: 4px solid var(--gold);
+    position: relative;
+  }
+  .certificate-preview .cert-badge {
+    font-size: 64px;
+  }
+  .certificate-preview h3 {
+    color: var(--berry);
+    font-size: 24px;
+    margin: 10px 0 4px;
+  }
+  .certificate-preview .child-name {
+    font-size: 30px;
+    font-weight: 800;
+    color: var(--magenta);
+    padding: 8px 20px;
+    border-bottom: 3px dashed var(--gold);
+    display: inline-block;
+    margin: 8px 0;
+  }
+  .certificate-preview .cert-text {
+    color: #8a3a55;
+    font-size: 14px;
+    line-height: 1.7;
+  }
+  .certificate-preview .cert-footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 16px;
+    font-size: 12px;
+    color: #a9748c;
+    border-top: 2px solid var(--cream);
+    padding-top: 14px;
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 980px) {
+    .hero-grid {
+      grid-template-columns: 1fr;
+    }
+    .hero-art {
+      order: -1;
+      max-width: 320px;
+      margin: 0 auto;
+    }
+    .product-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .designer-grid {
+      grid-template-columns: 1fr;
+    }
+    .footer-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+    .nav-links {
+      display: none;
+    }
+    .nav-phone {
+      display: none !important;
+    }
+    .burger {
+      display: block;
+    }
+    .form-grid {
+      grid-template-columns: 1fr;
+    }
+    .values-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+    .video-grid {
+      grid-template-columns: 1fr;
+    }
+    .about-story {
+      grid-template-columns: 1fr;
+    }
+    .testimonials-grid {
+      grid-template-columns: 1fr;
+    }
+    .bundles-grid {
+      grid-template-columns: 1fr;
+    }
+    .blog-grid {
+      grid-template-columns: 1fr;
+    }
+    .loyalty-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  @media (max-width: 560px) {
+    .product-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+    .memory-board {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+    }
+    .order-card {
+      padding: 26px 18px;
+    }
+    .game-section,
+    .designer-section {
+      margin: 0 12px;
+      padding: 50px 20px;
+      border-radius: 28px;
+    }
+    .certificate-section {
+      margin: 0 12px;
+      padding: 40px 20px;
+    }
+    .loyalty-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+</head>
+<body class="lang-ar">
+
+  <!-- ================= HEADER ================= -->
+  <header>
+    <nav class="wrap">
+      <div class="brand">
+        <img src="assets/LogoSweetoria_-_1.png" alt="Sweetoria logo">
+      </div>
+      <ul class="nav-links">
+        <li><a href="#about" data-i18n="nav.about">من نحن</a></li>
+        <li><a href="#shop" data-i18n="nav.shop">المتجر</a></li>
+        <li><a href="#bundles" data-i18n="nav.bundles">باقات</a></li>
+        <li><a href="#game" data-i18n="nav.game">العبي واكسبي</a></li>
+        <li><a href="#designer" data-i18n="nav.designer">صممي تورتتك</a></li>
+        <li><a href="#order" data-i18n="nav.order">اطلبي دلوقتي</a></li>
+        <li><a href="#certificate" data-i18n="nav.certificate">شهادات</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="tel:+201021389936" class="nav-phone" style="display:flex;align-items:center;gap:6px;color:var(--berry);font-weight:800;font-size:14px;">📞 01021389936</a>
+        <div class="lang-switch">
+          <button data-lang="ar" class="active">عربي</button>
+          <button data-lang="en">EN</button>
+          <button data-lang="de">DE</button>
+        </div>
+        <button class="cart-btn" id="cartBtn">
+          <span data-i18n="nav.cart">السلة</span>
+          <span class="cart-count" id="cartCount">0</span>
+        </button>
+        <button class="burger">☰</button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ================= HERO ================= -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="eyebrow"><span class="dot"></span> <span data-i18n="hero.eyebrow">حلويات مصنوعة بحب لأطفالك</span></span>
+        <h1 data-i18n="hero.title">سحر <span>في كل قضمة</span> — أهلاً بيكِ في Sweetoria</h1>
+        <p class="lead" data-i18n="hero.lead">حلوى مصنوعة بحب، ألعاب فيها هدايا حقيقية، وتورتة تقدري ترسمي تصميمها بإيدك. عالم Sweetoria الملوّن كله هنا.</p>
+        <div class="hero-ctas">
+          <a href="#game" class="btn-primary">🎮 <span data-i18n="hero.cta1">العبي واكسبي هدية</span></a>
+          <a href="#shop" class="btn-outline" data-i18n="hero.cta2">تسوقي المنتجات</a>
+        </div>
+      </div>
+      <div class="hero-art">
+        <img src="assets/LogoSweetoria_-_1.png" alt="Sweetoria candy hearts">
+        <div class="float-badge b1">🍬 <span data-i18n="hero.badge1">100% طبيعي</span></div>
+        <div class="float-badge b2">🎁 <span data-i18n="hero.badge2">هدية أسبوعية</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= COUPON BANNER ================= -->
+  <section class="section" style="padding:0 0 40px;">
+    <div class="coupon-banner">
+      <div class="cticon">🎟️</div>
+      <div>
+        <strong data-i18n="coupon.title">اشتري بـ 1000 جنيه واكسبي كوبون خصم 15%!</strong>
+        <span class="sub" id="couponSub" data-i18n="coupon.sub">باقي 1000 جنيه على الكوبون بتاعك</span>
+        <div class="coupon-progress"><div class="coupon-progress-fill" id="couponFill"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= NEW: ABOUT US ================= -->
+  <section class="section" id="about">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="tag" data-i18n="about.tag">حكاية Sweetoria</span>
+        <h2 data-i18n="about.title">إزاي بدت الحكاية؟</h2>
+        <p data-i18n="about.desc">كل براند له قصة، وقصة Sweetoria بدأت من حلم بسيط: إننا نصنع حلويات تفرح الأطفال وتخليهم يبتسموا.</p>
+      </div>
+      <div class="about-story">
+        <div class="story-text">
+          <h3 data-i18n="about.storyTitle">من مطبخ صغير.. لعالم مليان سكر وفرحة</h3>
+          <p data-i18n="about.story1">القصة بدأت لما لاحظنا إن أغلب الحلويات الجاهزة مليانة ألوان صناعية ومواد حافظة، وقررنا نعمل حاجة مختلفة. بدأنا في مطبخ صغير، بنجرب وصفاتنا بأيدينا، عشان نوصل لأفضل طعم وأحسن قوام.</p>
+          <p data-i18n="about.story2">مع الوقت، بدأت الأمهات تطلب مننا نعمل حلويات لأطفالهم في الحفلات والمناسبات، ومن هنا كانت خطوتنا الكبيرة: إننا نفتح Sweetoria كبراند متكامل يقدم حلويات صحية ولذيذة في نفس الوقت.</p>
+          <p data-i18n="about.story3">النهاردة، Sweetoria مش مجرد حلويات.. هي تجربة كاملة: لعبة، تصميم، وشهادة لكل طفل بيطلب مننا. عشان كل طفل يستحق يبقى بطل في عيون أهله.</p>
+        </div>
+        <div class="story-img">🍰</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= VALUES ================= -->
+  <section class="section" style="padding-top:0;">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="tag" data-i18n="values.tag">قيمنا</span>
+        <h2 data-i18n="values.title">إيه اللي بيميزنا؟</h2>
+      </div>
+      <div class="values-grid">
+        <div class="value-card"><div class="vicon">🌿</div><h4 data-i18n="value1.title">مكونات طبيعية</h4><p data-i18n="value1.desc">من غير ألوان صناعية ضارة، وكل حلوى متختبرة كويس</p></div>
+        <div class="value-card"><div class="vicon">👧</div><h4 data-i18n="value2.title">مصممة للأطفال</h4><p data-i18n="value2.desc">أشكال وألوان وأحجام مناسبة لعمر طفلك</p></div>
+        <div class="value-card"><div class="vicon">🎨</div><h4 data-i18n="value3.title">تجربة تفاعلية</h4><p data-i18n="value3.desc">من التصميم للعب.. طفلك جزء من التجربة مش بس بياكل</p></div>
+        <div class="value-card"><div class="vicon">🚀</div><h4 data-i18n="value4.title">توصيل سريع وآمن</h4><p data-i18n="value4.desc">تغليف محكم يحافظ على الحلوى طازة لحد باب البيت</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= NEW: TESTIMONIALS ================= -->
+  <section class="section" id="testimonials" style="background:var(--white);">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="tag" data-i18n="testimonials.tag">آراء العملاء</span>
+        <h2 data-i18n="testimonials.title">إيه اللي قالوه عن Sweetoria؟</h2>
+        <p data-i18n="testimonials.desc">كلام الناس دايمًا بيخليك تثق أكتر. شوفي إيه آراء الأمهات اللي جربوا منتجاتنا.</p>
+      </div>
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <div class="timg">👩</div>
+          <div class="stars">⭐⭐⭐⭐⭐</div>
+          <p class="tquote" data-i18n="test1.quote">"أول مرة ألاقي حلوى بتعجب بنتي ومفيش ألوان صناعية.. الطعم ولا الروعة!"</p>
+          <div class="tname" data-i18n="test1.name">— أم يوسف</div>
+          <div class="trole" data-i18n="test1.role">أم لطفلين</div>
+        </div>
+        <div class="testimonial-card">
+          <div class="timg">👩</div>
+          <div class="stars">⭐⭐⭐⭐⭐</div>
+          <p class="tquote" data-i18n="test2.quote">"التورتة اللي صممتها بنفسي وصلت زي ما تخيلتها بالضبط. حاجة تحفة!"</p>
+          <div class="tname" data-i18n="test2.name">— سارة</div>
+          <div class="trole" data-i18n="test2.role">عميلة دائمة</div>
+        </div>
+        <div class="testimonial-card">
+          <div class="timg">👩</div>
+          <div class="stars">⭐⭐⭐⭐⭐</div>
+          <p class="tquote" data-i18n="test3.quote">"شهادة باسم طفلي مع الطلب؟ دي أجمل حاجة.. حسّتني إنهم مهتمين بكل تفصيلة."</p>
+          <div class="tname" data-i18n="test3.name">— نورهان</div>
+          <div class="trole" data-i18n="test3.role">أم لثلاثة أطفال</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SHOP ================= -->
+  <section class="section" id="shop">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="tag" data-i18n="shop.tag">المتجر</span>
+        <h2 data-i18n="shop.title">اختاري حلوياتك المفضلة</h2>
+        <p data-i18n="shop.desc">كل قطعة في Sweetoria بتتحط في كيس صغير مليان ألوان وسحر.. زي ما شايفة في اللوجو بتاعنا بالظبط.</p>
+      </div>
+
+      <div class="filter-bar" id="filterBar">
+        <button class="filter-chip active" data-filter="all" data-i18n="shop.filter.all">الكل</button>
+        <button class="filter-chip" data-filter="lolly" data-i18n="shop.filter.lolly">لوليبوب</button>
+        <button class="filter-chip" data-filter="gummy" data-i18n="shop.filter.gummy">جيلي</button>
+        <button class="filter-chip" data-filter="choco" data-i18n="shop.filter.choco">شوكولاتة</button>
+        <button class="filter-chip" data-filter="cake" data-i18n="shop.filter.cake">تورتة</button>
+      </div>
+
+      <div class="product-grid" id="productGrid"></div>
+    </div>
+  </section>
+
+  <!-- ================= NEW: BUNDLES & OFFERS ================= -->
+  <section class="section" id="bundles" style="background:var(--white);">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="tag" data-i18n="bundles.tag">باقات وعروض</span>
+        <h2 data-i18n="bundles.title">عروض خاصة للحفلات والمناسبات</h2>
+        <p data-i18n="bundles.desc">اختاري الباقة المناسبة ليكي ووفّري فلوسك مع أحلى تشكيلة حلويات.</p>
+      </div>
+      <div class="bundles-grid">
+        <div class="bundle-card">
+          <div class="bicon">🎈</div>
+          <h4 data-i18n="bundle1.name">باقة الحفلات الصغيرة</h4>
+          <p data-i18n="bundle1.desc">20 قطعة حلوى متنوعة + تورتة صغيرة + شهادات للأطفال</p>
+          <div class="bprice">450 <span data-i18n="currency">جنيه</span> <span class="bold">550 جنيه</span></div>
+        </div>
+        <div class="bundle-card">
+          <div class="bicon">🎉</div>
+          <h4 data-i18n="bundle2.name">باقة عيد الميلاد</h4>
+          <p data-i18n="bundle2.desc">تورتة مخصصة + 30 قطعة حلوى + بالونات + شهادة باسم طفلك</p>
+          <div class="bprice">750 <span data-i18n="currency">جنيه</span> <span class="bold">920 جنيه</span></div>
+        </div>
+        <div class="bundle-card">
+          <div class="bicon">🏢</div>
+          <h4 data-i18n="bundle3.name">باقة الشركات والهدايا</h4>
+          <p data-i18n="bundle3.desc">علب هدايا فاخرة بحلويات Sweetoria + تخصيص بالشعار</p>
+          <div class="bprice">يبدأ من 300 <span data-i18n="currency">جنيه</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= GAME SECTION ================= -->
+  <section class="section" id="game">
+    <div class="game-section">
+      <div class="game-wrap">
+        <div class="game-head">
+          <span class="tag" data-i18n="game.tag">تحدي الأسبوع</span>
+          <h2 data-i18n="game.title">لعبة الذاكرة السكرية 🍭</h2>
+          <p data-i18n="game.desc">وصّلي كل زوج حلويات متطابق قبل ما ينتهي العداد. اللعبة صعبة شوية.. بس لو كسبتي هتاخدي هدية حقيقية من Sweetoria!</p>
+        </div>
+
+        <div class="countdown" id="countdown">
+          <div class="cd-box"><div class="num" id="cd-days">7</div><div class="label" data-i18n="game.days">أيام</div></div>
+          <div class="cd-box"><div class="num" id="cd-hours">00</div><div class="label" data-i18n="game.hours">ساعات</div></div>
+          <div class="cd-box"><div class="num" id="cd-mins">00</div><div class="label" data-i18n="game.mins">دقايق</div></div>
+          <div class="cd-box"><div class="num" id="cd-secs">00</div><div class="label" data-i18n="game.secs">ثواني</div></div>
+        </div>
+
+        <div class="memory-board" id="memoryBoard"></div>
+        <div class="game-status" id="gameStatus" data-i18n="game.status.start">اضغطي "ابدأ اللعب" وليكِ 40 ثانية بس!</div>
+        <div class="game-controls">
+          <button class="btn-white" id="startGameBtn" data-i18n="game.start">ابدأ اللعب</button>
+          <button class="btn-ghost-white" id="resetGameBtn" data-i18n="game.reset">إعادة</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="prize-modal-overlay" id="prizeModal">
+    <div class="prize-modal">
+      <div class="icon">🏆</div>
+      <h3 data-i18n="prize.title">مبروووك! كسبتي الهدية 🎉</h3>
+      <p data-i18n="prize.desc">استخدمي الكود ده عند إتمام أول أوردر واحصلي على هدية مجانية مع طلبك.</p>
+      <div class="prize-code">SWEET-WIN7</div>
+      <button class="btn-primary" onclick="document.getElementById('prizeModal').classList.remove('show')" data-i18n="prize.close">تمام، يلا نتسوق</button>
+    </div>
+  </div>
+
+  <!-- ================= CAKE DESIGNER ================= -->
+  <section class="section" id="designer">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="tag" data-i18n="designer.tag">صممي تورتتك</span>
+        <h2 data-i18n="designer.title">ارسمي شكل التورتة اللي حلمتي بيها</h2>
+        <p data-i18n="designer.desc">استخدمي الفرشاة وأدوات الأشكال، وابعتيلنا رسمتك.. وهنحولها لتورتة حقيقية!</p>
+      </div>
+
+      <div class="designer-section">
+        <div class="designer-grid">
+          <div>
+            <div class="canvas-wrap">
+              <canvas id="cakeCanvas" width="600" height="600"></canvas>
+              <div class="canvas-tools">
+                <div class="swatch active" style="background:#CF2B5A" data-color="#CF2B5A"></div>
+                <div class="swatch" style="background:#F27296" data-color="#F27296"></div>
+                <div class="swatch" style="background:#F6497F" data-color="#F6497F"></div>
+                <div class="swatch" style="background:#F0B6DF" data-color="#F0B6DF"></div>
+                <div class="swatch" style="background:#F2AAB4" data-color="#F2AAB4"></div>
+                <div class="swatch" style="background:#7a4a2a" data-color="#7a4a2a"></div>
+                <div class="swatch" style="background:#ffffff;box-shadow:0 0 0 2px #F2AAB4" data-color="#ffffff"></div>
+                <input type="range" id="brushSize" min="2" max="30" value="8">
+                <button class="tool-btn active" id="freeDrawBtn">✏️ <span data-i18n="designer.freehand">رسم حر</span></button>
+                <button class="tool-btn" id="eraseBtn">🧹 <span data-i18n="designer.erase">ممحاة</span></button>
+                <button class="tool-btn" id="clearBtn">🗑️ <span data-i18n="designer.clear">مسح الكل</span></button>
+              </div>
+              <div class="mode-row">
+                <span class="mlabel" data-i18n="designer.shapesLabel">أدوات الأشكال المساعدة:</span>
+                <div class="stamp-tools">
+                  <button class="stamp-btn" data-shape="square">▢</button>
+                  <button class="stamp-btn" data-shape="circle">◯</button>
+                  <button class="stamp-btn" data-shape="heart">♡</button>
+                  <button class="stamp-btn" data-shape="star">☆</button>
+                  <button class="stamp-btn" data-shape="triangle">△</button>
+                  <button class="stamp-btn" data-shape="line">╱</button>
+                  <button class="stamp-btn" data-shape="candle">🕯️</button>
+                  <button class="stamp-btn" data-shape="flower">🌸</button>
+                  <button class="stamp-btn" data-shape="butterfly">🦋</button>
+                  <button class="stamp-btn" data-shape="rings">⭕</button>
+                </div>
+              </div>
+            </div>
+            <div class="designer-cta">
+              <button class="btn-primary" id="saveDesignBtn">💾 <span data-i18n="designer.save">احفظي تصميمك</span></button>
+              <span id="designStatus" style="align-self:center; font-size:13px; color:#a9748c;"></span>
+            </div>
+          </div>
+
+          <div class="helper-tools">
+            <h3 data-i18n="designer.helper.title">أدوات مساعدة للرسم</h3>
+            <p data-i18n="designer.helper.desc2">دوسي على أي أداة شكل تحت اللوحة، وبعدين دوسي وسيبي على اللوحة عشان ترسمي الشكل مباشرة.. زي استخدام قالب حقيقي!</p>
+
+            <div class="helper-item">
+              <div class="hicon">🖌️</div>
+              <div class="hinfo"><strong data-i18n="helper1.name">رسم حر</strong><span data-i18n="helper1.desc">ارسمي بحرية بأي لون وحجم فرشاة</span></div>
+            </div>
+            <div class="helper-item">
+              <div class="hicon">▢</div>
+              <div class="hinfo"><strong data-i18n="helper2.name">أداة المربع والدائرة</strong><span data-i18n="helper2.desc">لقواعد التورتة والتزيينات الأساسية</span></div>
+            </div>
+            <div class="helper-item">
+              <div class="hicon">♡</div>
+              <div class="hinfo"><strong data-i18n="helper3.name">أدوات الزخرفة</strong><span data-i18n="helper3.desc">قلب، نجمة، شمعة، وردة، فراشة — كل حاجة لتورتة أحلامك</span></div>
+            </div>
+            <div class="helper-item">
+              <div class="hicon">🧹</div>
+              <div class="hinfo"><strong data-i18n="helper4.name">الممحاة</strong><span data-i18n="helper4.desc">لتعديل أي جزء من الرسمة بسهولة</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= VIDEOS ================= -->
+  <section class="section" id="videos">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="tag" data-i18n="videos.tag">من مطبخنا ليكِ</span>
+        <h2 data-i18n="videos.title">إزاي بنصنع حلاوتنا بطريقة صحية</h2>
+        <p data-i18n="videos.desc">شوفي بنفسك كل خطوة.. من اختيار المكونات لحد التغليف.</p>
+      </div>
+      <div class="video-grid" id="videoGrid"></div>
+    </div>
+  </section>
+
+  <div class="video-modal-overlay" id="videoModal">
+    <div class="video-modal">
+      <button class="video-close" onclick="document.getElementById('videoModal').classList.remove('show')">✕</button>
+      <div class="video-placeholder" id="videoPlaceholder">
+        <div style="font-size:44px;">🎬</div>
+        <div id="videoModalTitle" style="font-weight:800; font-size:18px;"></div>
+        <div style="font-size:13px; opacity:.85;" data-i18n="videos.comingsoon">الفيديو هيتم رفعه قريبًا هنا</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= NEW: BLOG / RECIPES ================= -->
+  <section class="section" id="blog" style="background:var(--white);">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="tag" data-i18n="blog.tag">مدونة Sweetoria</span>
+        <h2 data-i18n="blog.title">وصفات ونصائح من مطبخنا</h2>
+        <p data-i18n="blog.desc">جربي تعملي بنفسك حلويات صحية لأطفالك بوصفاتنا السهلة.</p>
+      </div>
+      <div class="blog-grid">
+        <div class="blog-card">
+          <div class="blog-img">🍪</div>
+          <div class="blog-body">
+            <span class="btag" data-i18n="blog.tag1">وصفات</span>
+            <h4 data-i18n="blog.title1">كوكيز الشوفان بالشوكولاتة</h4>
+            <p data-i18n="blog.desc1">وصفة سهلة وسريعة بمكونات متوفرة في كل بيت.. هتعجبك وهتعجب أطفالك!</p>
+            <a href="#" class="read-more" data-i18n="blog.readmore">اقرأ المزيد →</a>
+          </div>
+        </div>
+        <div class="blog-card">
+          <div class="blog-img">🎂</div>
+          <div class="blog-body">
+            <span class="btag" data-i18n="blog.tag2">نصائح</span>
+            <h4 data-i18n="blog.title2">إزاي تخلي التورتة بتاعتك فنية؟</h4>
+            <p data-i18n="blog.desc2">نصائح بسيطة لتزيين التورتة في البيت زي المحترفين.. بدون تكلفة كبيرة.</p>
+            <a href="#" class="read-more" data-i18n="blog.readmore">اقرأ المزيد →</a>
+          </div>
+        </div>
+        <div class="blog-card">
+          <div class="blog-img">🧁</div>
+          <div class="blog-body">
+            <span class="btag" data-i18n="blog.tag3">قصص نجاح</span>
+            <h4 data-i18n="blog.title3">قصة نجاح أم يوسف مع Sweetoria</h4>
+            <p data-i18n="blog.desc3">إزاي أم يوسف حولت حبها للحلويات لمشروع ناجح مع Sweetoria.</p>
+            <a href="#" class="read-more" data-i18n="blog.readmore">اقرأ المزيد →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= NEW: LOYALTY PROGRAM ================= -->
+  <section class="section" id="loyalty">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="tag" data-i18n="loyalty.tag">برنامج الولاء</span>
+        <h2 data-i18n="loyalty.title">كل طلب بتعمليه.. نقطة ليكي!</h2>
+        <p data-i18n="loyalty.desc">اجمعي نقاط مع كل أوردر واستبدليها بخصومات وهدايا حقيقية من Sweetoria.</p>
+      </div>
+      <div class="loyalty-grid">
+        <div class="loyalty-card">
+          <div class="licon">⭐</div>
+          <h4 data-i18n="loyalty1.title">نقطة لكل 10 جنيه</h4>
+          <p data-i18n="loyalty1.desc">كلما زادت مشترياتك، زادت نقاطك ووصلت لمستويات أعلى.</p>
+        </div>
+        <div class="loyalty-card">
+          <div class="licon">🎁</div>
+          <h4 data-i18n="loyalty2.title">هدية عند 100 نقطة</h4>
+          <p data-i18n="loyalty2.desc">اول ما توصلي 100 نقطة، هتاخدي هدية مجانية مع طلبك الجاي.</p>
+        </div>
+        <div class="loyalty-card">
+          <div class="licon">💎</div>
+          <h4 data-i18n="loyalty3.title">خصم 10% عند 250 نقطة</h4>
+          <p data-i18n="loyalty3.desc">توصلي لمستوى VIP واخصمي 10% على كل طلباتك الجاية.</p>
+        </div>
+        <div class="loyalty-card">
+          <div class="licon">👑</div>
+          <h4 data-i18n="loyalty4.title">تورتة مجانية عند 500 نقطة</h4>
+          <p data-i18n="loyalty4.desc">أكبر مكافأة في البرنامج: تورتة مخصصة مجانية بالكامل!</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= NEW: CERTIFICATE SECTION (STANDALONE) ================= -->
+  <section class="section" id="certificate" style="background:var(--white);">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="tag" data-i18n="certificate.tag">شهادات التقدير</span>
+        <h2 data-i18n="certificate.title">كل طفل بطل في عيوننا 🏆</h2>
+        <p data-i18n="certificate.desc">في Sweetoria، كل طفل بيطلب مننا يستحق شهادة تقدير خاصة باسمه. شوفي نموذج الشهادة اللي هتوصله مع طلبه!</p>
+      </div>
+      <div class="certificate-section">
+        <h2 data-i18n="certificate.demoTitle">🎖️ نموذج شهادة Sweetoria</h2>
+        <p data-i18n="certificate.demoDesc">الشهادة بتتضاف مجاناً مع كل طلب، وبتتبعت باسم طفلك. عشان كل طفل يحس إنه مميز!</p>
+        <div class="certificate-preview" id="certificatePreviewSection">
+          <div class="cert-badge">🏆</div>
+          <h3 style="color:var(--berry); font-size:22px; margin:6px 0;">شهادة تقدير من Sweetoria</h3>
+          <div style="font-size:28px; font-weight:800; color:var(--magenta); padding:8px 0;">
+            👶 <span id="certDisplayName">يوسف</span>
+          </div>
+          <p class="cert-text" style="max-width:400px; margin:8px auto;">
+            لأنك تستحق كل حلاوة في الدنيا، Sweetoria تقدم لك هذه الشهادة تقديرًا لحبك للحلويات وذوقك الرفيع.
+            <br>⭐ نحن فخورون بك!
+          </p>
+          <div class="cert-footer">
+            <span>Sweetoria — Magic in Every Bite</span>
+            <span id="certDisplayDate">26 يوليو 2026</span>
+          </div>
+          <div style="margin-top:16px;">
+            <button class="btn-primary" id="printCertificateBtn" style="font-size:14px; padding:10px 24px;">
+              🖨️ طباعة الشهادة
+            </button>
+          </div>
+        </div>
+        <div style="margin-top:30px; text-align:center;">
+          <p style="color:#8a3a55; font-size:14px;" data-i18n="certificate.howto">
+            💡 عشان تحصلي على الشهادة باسم طفلك، اكتبي اسمه في حقل "اسم الطفل للشهادة" في نموذج الطلب.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= NEW: FAQ ================= -->
+  <section class="section" id="faq" style="background:var(--white);">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="tag" data-i18n="faq.tag">أسئلة شائعة</span>
+        <h2 data-i18n="faq.title">أجوبة لأهم أسئلتك</h2>
+        <p data-i18n="faq.desc">لو عندك سؤال تاني، تقدري تتواصلي معانا على الواتساب أو الإيميل.</p>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-q" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')">
+            <span data-i18n="faq.q1">إزاي بتحافظوا على الحلاوة طازة أثناء التوصيل؟</span>
+            <span class="icon">▼</span>
+          </div>
+          <div class="faq-a" data-i18n="faq.a1">بنستخدم تغليف محكم وعازل للحرارة، وبنشحن الطلبات في نفس اليوم عشان توصل ليكي طازة زي ما طلعت من المطبخ بالضبط.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')">
+            <span data-i18n="faq.q2">هل فيه خيارات خالية من الجلوتين أو سكر؟</span>
+            <span class="icon">▼</span>
+          </div>
+          <div class="faq-a" data-i18n="faq.a2">آه! عندنا تشكيلة خاصة خالية من الجلوتين، وبرضه عندنا حلويات بسكر صحي بديل. تقدري تطلبيها من المتجر أو تذكريها في ملاحظات الطلب.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')">
+            <span data-i18n="faq.q3">إيه سياسة الاسترجاع والاستبدال؟</span>
+            <span class="icon">▼</span>
+          </div>
+          <div class="faq-a" data-i18n="faq.a3">لو حصل أي مشكلة في الطلب، تواصلي معانا خلال 24 ساعة من الاستلام وهنحل المشكلة فورًا. نضمن جودة منتجاتنا 100%.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')">
+            <span data-i18n="faq.q4">إزاي أحصل على شهادة باسم طفلي؟</span>
+            <span class="icon">▼</span>
+          </div>
+          <div class="faq-a" data-i18n="faq.a4">بكل سهولة! في نموذج الطلب هتلاقي خانة "اسم الطفل للشهادة". اكتبي اسم طفلك، وهنضيف الشهادة مع الطلب مجانًا.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= ORDER FORM ================= -->
+  <section class="section order-section" id="order">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="tag" data-i18n="order.tag">إتمام الطلب</span>
+        <h2 data-i18n="order.title">اطلبي دلوقتي</h2>
+        <p data-i18n="order.desc">املي بياناتك، اختاري طريقة التوصيل والدفع، وهنبعتلك حلاويتك بأسرع وقت.</p>
+      </div>
+
+      <div class="order-card">
+        <div class="order-steps">
+          <div class="step active"><div class="circle">1</div><div class="slabel" data-i18n="order.step1">بياناتك</div></div>
+          <div class="step active"><div class="circle">2</div><div class="slabel" data-i18n="order.step2">التوصيل</div></div>
+          <div class="step active"><div class="circle">3</div><div class="slabel" data-i18n="order.step3">الدفع</div></div>
+          <div class="step active"><div class="circle">4</div><div class="slabel" data-i18n="order.step4">تأكيد</div></div>
+        </div>
+
+        <form id="orderForm">
+          <div class="form-grid">
+            <div class="field"><label data-i18n="order.name">الاسم بالكامل</label><input type="text" required placeholder="مثال: سارة أحمد"></div>
+            <!-- Child name for certificate -->
+            <div class="field"><label data-i18n="order.childName">اسم الطفل للشهادة 🏆</label><input type="text" id="childNameInput" placeholder="مثال: يوسف" data-i18n-placeholder="order.childPlaceholder"></div>
+            <div class="field country-field">
+              <label data-i18n="order.country">الدولة</label>
+              <select id="countrySelect">
+                <option value="EG" data-code="+20" selected>🇪🇬 مصر</option>
+                <option value="SA" data-code="+966">🇸🇦 السعودية</option>
+                <option value="AE" data-code="+971">🇦🇪 الإمارات</option>
+                <option value="KW" data-code="+965">🇰🇼 الكويت</option>
+                <option value="QA" data-code="+974">🇶🇦 قطر</option>
+                <option value="JO" data-code="+962">🇯🇴 الأردن</option>
+                <option value="DE" data-code="+49">🇩🇪 ألمانيا</option>
+                <option value="OTHER" data-code="">🌍 دولة أخرى</option>
+              </select>
+            </div>
+            <div class="field"><label data-i18n="order.phone">رقم الموبايل</label>
+              <div style="display:flex; gap:8px;">
+                <span id="countryCode" style="background:var(--cream); border:2px solid rgba(242,170,180,.4); border-radius:14px; padding:13px 12px; font-weight:700; color:var(--berry); min-width:60px; text-align:center;">+20</span>
+                <input type="tel" required placeholder="1xxxxxxxxx" style="flex:1;">
+              </div>
+            </div>
+            <div class="field"><label data-i18n="order.city">المدينة</label><input type="text" required placeholder="مثال: القاهرة"></div>
+            <div class="field span2"><label data-i18n="order.address">العنوان بالتفصيل</label><input type="text" required placeholder="المحافظة، المنطقة، الشارع، رقم العمارة"></div>
+            <div class="field span2"><label data-i18n="order.notes">ملاحظات على الطلب (اختياري)</label><textarea rows="3" placeholder="مثال: ابعتي معايا كارت تهنئة"></textarea></div>
+          </div>
+
+          <div style="margin-top:26px;">
+            <label style="font-weight:800;color:var(--berry);font-size:14px;display:block;margin-bottom:10px;" data-i18n="order.deliveryLabel">طريقة التوصيل</label>
+            <div class="delivery-options">
+              <div class="delivery-opt selected" data-delivery="standard" data-fee="30">
+                <div class="dicon">🚚</div><strong data-i18n="delivery.standard.name">توصيل عادي</strong><span data-i18n="delivery.standard.desc">2-3 أيام • 30 جنيه</span>
+              </div>
+              <div class="delivery-opt" data-delivery="express" data-fee="60">
+                <div class="dicon">⚡</div><strong data-i18n="delivery.express.name">توصيل سريع</strong><span data-i18n="delivery.express.desc">خلال 24 ساعة • 60 جنيه</span>
+              </div>
+              <div class="delivery-opt" data-delivery="pickup" data-fee="0">
+                <div class="dicon">🏪</div><strong data-i18n="delivery.pickup.name">استلام من المحل</strong><span data-i18n="delivery.pickup.desc">مجاني</span>
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top:26px;">
+            <label style="font-weight:800;color:var(--berry);font-size:14px;display:block;margin-bottom:10px;" data-i18n="order.paymentLabel">طريقة الدفع</label>
+            <div class="payment-options">
+              <div class="pay-opt selected" data-pay="cash"><span class="picon">💵</span><span data-i18n="pay.cash">الدفع عند الاستلام</span></div>
+              <div class="pay-opt" data-pay="card"><span class="picon">💳</span><span data-i18n="pay.card">فيزا / ماستركارد</span></div>
+              <div class="pay-opt" data-pay="wallet"><span class="picon">📱</span><span data-i18n="pay.wallet">محفظة موبايل</span></div>
+            </div>
+          </div>
+
+          <div class="order-summary">
+            <h4 style="color:var(--berry); font-size:15px; margin-bottom:14px;" data-i18n="order.summaryTitle">ملخص طلبك</h4>
+            <div id="cartLines"><div class="cart-empty" data-i18n="cart.empty">السلة فاضية.. ضيفي منتجات من المتجر فوق 🍬</div></div>
+            <div class="row"><span data-i18n="order.subtotal">الإجمالي الفرعي</span><span id="subtotalVal">0 <span data-i18n="currency">جنيه</span></span></div>
+            <div class="row"><span data-i18n="order.deliveryFee">رسوم التوصيل</span><span id="deliveryVal">30 <span data-i18n="currency">جنيه</span></span></div>
+            <div class="row total"><span data-i18n="order.total">الإجمالي الكلي</span><span id="totalVal">30 <span data-i18n="currency">جنيه</span></span></div>
+          </div>
+
+          <!-- CERTIFICATE PREVIEW IN ORDER -->
+          <div id="certificatePreview" style="display:none; margin-top:20px; border:3px solid var(--gold); border-radius:20px; padding:24px; background:var(--cream); text-align:center;">
+            <div style="font-size:40px;">🏆</div>
+            <h4 style="color:var(--berry); margin:4px 0;">شهادة تقدير من Sweetoria</h4>
+            <div style="font-size:28px; font-weight:800; color:var(--magenta);">👶 <span id="previewChildName">طفلي</span></div>
+            <p style="color:#8a3a55; font-size:14px; line-height:1.7; margin-top:8px;">
+              لأنك تستحق كل حلاوة في الدنيا، Sweetoria تقدم لك هذه الشهادة تقديرًا لحبك للحلويات وذوقك الرفيع.
+              <br>⭐ نحن فخورون بك!
+            </p>
+            <div style="display:flex; justify-content:space-between; margin-top:12px; font-size:12px; color:#a9748c; border-top:2px solid var(--gold); padding-top:12px;">
+              <span>Sweetoria — Magic in Every Bite</span>
+              <span id="previewDate"></span>
+            </div>
+          </div>
+
+          <button type="submit" class="btn-primary" style="width:100%; justify-content:center; margin-top:24px; font-size:17px;">
+            🎀 <span data-i18n="order.submit">تأكيد الطلب</span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer>
+    <div class="wrap footer-grid">
+      <div class="footer-brand">
+        <img src="assets/LogoSweetoria_-_1.png" alt="Sweetoria">
+        <p data-i18n="footer.about">Sweetoria براند حلويات مصمم خصيصًا للأطفال.. سحر في كل قضمة، وفرحة في كل طلب، وشهادة لكل بطل صغير.</p>
+      </div>
+      <div class="footer-col">
+        <h5 data-i18n="footer.explore">تصفحي</h5>
+        <a href="#about" data-i18n="nav.about">من نحن</a>
+        <a href="#shop" data-i18n="nav.shop">المتجر</a>
+        <a href="#bundles" data-i18n="nav.bundles">باقات</a>
+        <a href="#game" data-i18n="nav.game">العبي واكسبي</a>
+        <a href="#designer" data-i18n="nav.designer">صممي تورتتك</a>
+        <a href="#order" data-i18n="nav.order">اطلبي دلوقتي</a>
+        <a href="#certificate" data-i18n="nav.certificate">شهادات</a>
+        <a href="#blog" data-i18n="nav.blog">المدونة</a>
+        <a href="#faq" data-i18n="nav.faq">أسئلة شائعة</a>
+      </div>
+      <div class="footer-col">
+        <h5 data-i18n="footer.contact">تواصلي معنا</h5>
+        <a href="tel:+201021389936">📞 01021389936</a>
+        <a href="#">📧 hello@sweetoria.com</a>
+        <a href="#">📍 القاهرة، مصر</a>
+      </div>
+      <div class="footer-col">
+        <h5 data-i18n="footer.follow">تابعينا</h5>
+        <a href="#">Instagram</a>
+        <a href="#">TikTok</a>
+        <a href="#">Facebook</a>
+      </div>
+    </div>
+    <div class="wrap footer-bottom">
+      <span data-i18n="footer.rights">© 2026 Sweetoria — Magic in Every Bite. جميع الحقوق محفوظة.</span>
+      <span class="dev" data-i18n="footer.dev">برمجة وتطوير: إسراء ربيع</span>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    // ============================================================
+    // 🍭 SWEETORIA — FULL JAVASCRIPT
+    // ============================================================
+
+    // ---------- i18n ----------
+    const i18n = {
+      ar: {
+        'nav.about': 'من نحن',
+        'nav.shop': 'المتجر',
+        'nav.bundles': 'باقات',
+        'nav.game': 'العبي واكسبي',
+        'nav.designer': 'صممي تورتتك',
+        'nav.order': 'اطلبي دلوقتي',
+        'nav.certificate': 'شهادات',
+        'nav.blog': 'المدونة',
+        'nav.faq': 'أسئلة شائعة',
+        'nav.cart': 'السلة',
+        'hero.eyebrow': 'حلويات مصنوعة بحب لأطفالك',
+        'hero.title': 'سحر <span>في كل قضمة</span> — أهلاً بيكِ في Sweetoria',
+        'hero.lead': 'حلوى مصنوعة بحب، ألعاب فيها هدايا حقيقية، وتورتة تقدري ترسمي تصميمها بإيدك. عالم Sweetoria الملوّن كله هنا.',
+        'hero.cta1': 'العبي واكسبي هدية',
+        'hero.cta2': 'تسوقي المنتجات',
+        'hero.badge1': '100% طبيعي',
+        'hero.badge2': 'هدية أسبوعية',
+        'coupon.title': 'اشتري بـ 1000 جنيه واكسبي كوبون خصم 15%!',
+        'coupon.sub': 'باقي 1000 جنيه على الكوبون بتاعك',
+        'about.tag': 'حكاية Sweetoria',
+        'about.title': 'إزاي بدت الحكاية؟',
+        'about.desc': 'كل براند له قصة، وقصة Sweetoria بدأت من حلم بسيط: إننا نصنع حلويات تفرح الأطفال وتخليهم يبتسموا.',
+        'about.storyTitle': 'من مطبخ صغير.. لعالم مليان سكر وفرحة',
+        'about.story1': 'القصة بدأت لما لاحظنا إن أغلب الحلويات الجاهزة مليانة ألوان صناعية ومواد حافظة، وقررنا نعمل حاجة مختلفة. بدأنا في مطبخ صغير، بنجرب وصفاتنا بأيدينا، عشان نوصل لأفضل طعم وأحسن قوام.',
+        'about.story2': 'مع الوقت، بدأت الأمهات تطلب مننا نعمل حلويات لأطفالهم في الحفلات والمناسبات، ومن هنا كانت خطوتنا الكبيرة: إننا نفتح Sweetoria كبراند متكامل يقدم حلويات صحية ولذيذة في نفس الوقت.',
+        'about.story3': 'النهاردة، Sweetoria مش مجرد حلويات.. هي تجربة كاملة: لعبة، تصميم، وشهادة لكل طفل بيطلب مننا. عشان كل طفل يستحق يبقى بطل في عيون أهله.',
+        'values.tag': 'قيمنا',
+        'values.title': 'إيه اللي بيميزنا؟',
+        'value1.title': 'مكونات طبيعية',
+        'value1.desc': 'من غير ألوان صناعية ضارة، وكل حلوى متختبرة كويس',
+        'value2.title': 'مصممة للأطفال',
+        'value2.desc': 'أشكال وألوان وأحجام مناسبة لعمر طفلك',
+        'value3.title': 'تجربة تفاعلية',
+        'value3.desc': 'من التصميم للعب.. طفلك جزء من التجربة مش بس بياكل',
+        'value4.title': 'توصيل سريع وآمن',
+        'value4.desc': 'تغليف محكم يحافظ على الحلوى طازة لحد باب البيت',
+        'testimonials.tag': 'آراء العملاء',
+        'testimonials.title': 'إيه اللي قالوه عن Sweetoria؟',
+        'testimonials.desc': 'كلام الناس دايمًا بيخليك تثق أكتر. شوفي إيه آراء الأمهات اللي جربوا منتجاتنا.',
+        'test1.quote': '"أول مرة ألاقي حلوى بتعجب بنتي ومفيش ألوان صناعية.. الطعم ولا الروعة!"',
+        'test1.name': '— أم يوسف',
+        'test1.role': 'أم لطفلين',
+        'test2.quote': '"التورتة اللي صممتها بنفسي وصلت زي ما تخيلتها بالضبط. حاجة تحفة!"',
+        'test2.name': '— سارة',
+        'test2.role': 'عميلة دائمة',
+        'test3.quote': '"شهادة باسم طفلي مع الطلب؟ دي أجمل حاجة.. حسّتني إنهم مهتمين بكل تفصيلة."',
+        'test3.name': '— نورهان',
+        'test3.role': 'أم لثلاثة أطفال',
+        'shop.tag': 'المتجر',
+        'shop.title': 'اختاري حلوياتك المفضلة',
+        'shop.desc': 'كل قطعة في Sweetoria بتتحط في كيس صغير مليان ألوان وسحر.. زي ما شايفة في اللوجو بتاعنا بالظبط.',
+        'shop.filter.all': 'الكل',
+        'shop.filter.lolly': 'لوليبوب',
+        'shop.filter.gummy': 'جيلي',
+        'shop.filter.choco': 'شوكولاتة',
+        'shop.filter.cake': 'تورتة',
+        'bundles.tag': 'باقات وعروض',
+        'bundles.title': 'عروض خاصة للحفلات والمناسبات',
+        'bundles.desc': 'اختاري الباقة المناسبة ليكي ووفّري فلوسك مع أحلى تشكيلة حلويات.',
+        'bundle1.name': 'باقة الحفلات الصغيرة',
+        'bundle1.desc': '20 قطعة حلوى متنوعة + تورتة صغيرة + شهادات للأطفال',
+        'bundle2.name': 'باقة عيد الميلاد',
+        'bundle2.desc': 'تورتة مخصصة + 30 قطعة حلوى + بالونات + شهادة باسم طفلك',
+        'bundle3.name': 'باقة الشركات والهدايا',
+        'bundle3.desc': 'علب هدايا فاخرة بحلويات Sweetoria + تخصيص بالشعار',
+        'game.tag': 'تحدي الأسبوع',
+        'game.title': 'لعبة الذاكرة السكرية 🍭',
+        'game.desc': 'وصّلي كل زوج حلويات متطابق قبل ما ينتهي العداد. اللعبة صعبة شوية.. بس لو كسبتي هتاخدي هدية حقيقية من Sweetoria!',
+        'game.days': 'أيام',
+        'game.hours': 'ساعات',
+        'game.mins': 'دقايق',
+        'game.secs': 'ثواني',
+        'game.status.start': 'اضغطي "ابدأ اللعب" وليكِ 40 ثانية بس!',
+        'game.start': 'ابدأ اللعب',
+        'game.reset': 'إعادة',
+        'prize.title': 'مبروووك! كسبتي الهدية 🎉',
+        'prize.desc': 'استخدمي الكود ده عند إتمام أول أوردر واحصلي على هدية مجانية مع طلبك.',
+        'prize.close': 'تمام، يلا نتسوق',
+        'designer.tag': 'صممي تورتتك',
+        'designer.title': 'ارسمي شكل التورتة اللي حلمتي بيها',
+        'designer.desc': 'استخدمي الفرشاة وأدوات الأشكال، وابعتيلنا رسمتك.. وهنحولها لتورتة حقيقية!',
+        'designer.freehand': 'رسم حر',
+        'designer.erase': 'ممحاة',
+        'designer.clear': 'مسح الكل',
+        'designer.shapesLabel': 'أدوات الأشكال المساعدة:',
+        'designer.save': 'احفظي تصميمك',
+        'designer.helper.title': 'أدوات مساعدة للرسم',
+        'designer.helper.desc2': 'دوسي على أي أداة شكل تحت اللوحة، وبعدين دوسي وسيبي على اللوحة عشان ترسمي الشكل مباشرة.. زي استخدام قالب حقيقي!',
+        'helper1.name': 'رسم حر',
+        'helper1.desc': 'ارسمي بحرية بأي لون وحجم فرشاة',
+        'helper2.name': 'أداة المربع والدائرة',
+        'helper2.desc': 'لقواعد التورتة والتزيينات الأساسية',
+        'helper3.name': 'أدوات الزخرفة',
+        'helper3.desc': 'قلب، نجمة، شمعة، وردة، فراشة — كل حاجة لتورتة أحلامك',
+        'helper4.name': 'الممحاة',
+        'helper4.desc': 'لتعديل أي جزء من الرسمة بسهولة',
+        'videos.tag': 'من مطبخنا ليكِ',
+        'videos.title': 'إزاي بنصنع حلاوتنا بطريقة صحية',
+        'videos.desc': 'شوفي بنفسك كل خطوة.. من اختيار المكونات لحد التغليف.',
+        'videos.comingsoon': 'الفيديو هيتم رفعه قريبًا هنا',
+        'blog.tag': 'مدونة Sweetoria',
+        'blog.title': 'وصفات ونصائح من مطبخنا',
+        'blog.desc': 'جربي تعملي بنفسك حلويات صحية لأطفالك بوصفاتنا السهلة.',
+        'blog.tag1': 'وصفات',
+        'blog.title1': 'كوكيز الشوفان بالشوكولاتة',
+        'blog.desc1': 'وصفة سهلة وسريعة بمكونات متوفرة في كل بيت.. هتعجبك وهتعجب أطفالك!',
+        'blog.tag2': 'نصائح',
+        'blog.title2': 'إزاي تخلي التورتة بتاعتك فنية؟',
+        'blog.desc2': 'نصائح بسيطة لتزيين التورتة في البيت زي المحترفين.. بدون تكلفة كبيرة.',
+        'blog.tag3': 'قصص نجاح',
+        'blog.title3': 'قصة نجاح أم يوسف مع Sweetoria',
+        'blog.desc3': 'إزاي أم يوسف حولت حبها للحلويات لمشروع ناجح مع Sweetoria.',
+        'blog.readmore': 'اقرأ المزيد →',
+        'loyalty.tag': 'برنامج الولاء',
+        'loyalty.title': 'كل طلب بتعمليه.. نقطة ليكي!',
+        'loyalty.desc': 'اجمعي نقاط مع كل أوردر واستبدليها بخصومات وهدايا حقيقية من Sweetoria.',
+        'loyalty1.title': 'نقطة لكل 10 جنيه',
+        'loyalty1.desc': 'كلما زادت مشترياتك، زادت نقاطك ووصلت لمستويات أعلى.',
+        'loyalty2.title': 'هدية عند 100 نقطة',
+        'loyalty2.desc': 'اول ما توصلي 100 نقطة، هتاخدي هدية مجانية مع طلبك الجاي.',
+        'loyalty3.title': 'خصم 10% عند 250 نقطة',
+        'loyalty3.desc': 'توصلي لمستوى VIP واخصمي 10% على كل طلباتك الجاية.',
+        'loyalty4.title': 'تورتة مجانية عند 500 نقطة',
+        'loyalty4.desc': 'أكبر مكافأة في البرنامج: تورتة مخصصة مجانية بالكامل!',
+        'certificate.tag': 'شهادات التقدير',
+        'certificate.title': 'كل طفل بطل في عيوننا 🏆',
+        'certificate.desc': 'في Sweetoria، كل طفل بيطلب مننا يستحق شهادة تقدير خاصة باسمه. شوفي نموذج الشهادة اللي هتوصله مع طلبه!',
+        'certificate.demoTitle': '🎖️ نموذج شهادة Sweetoria',
+        'certificate.demoDesc': 'الشهادة بتتضاف مجاناً مع كل طلب، وبتتبعت باسم طفلك. عشان كل طفل يحس إنه مميز!',
+        'certificate.howto': '💡 عشان تحصلي على الشهادة باسم طفلك، اكتبي اسمه في حقل "اسم الطفل للشهادة" في نموذج الطلب.',
+        'faq.tag': 'أسئلة شائعة',
+        'faq.title': 'أجوبة لأهم أسئلتك',
+        'faq.desc': 'لو عندك سؤال تاني، تقدري تتواصلي معانا على الواتساب أو الإيميل.',
+        'faq.q1': 'إزاي بتحافظوا على الحلاوة طازة أثناء التوصيل؟',
+        'faq.a1': 'بنستخدم تغليف محكم وعازل للحرارة، وبنشحن الطلبات في نفس اليوم عشان توصل ليكي طازة زي ما طلعت من المطبخ بالضبط.',
+        'faq.q2': 'هل فيه خيارات خالية من الجلوتين أو سكر؟',
+        'faq.a2': 'آه! عندنا تشكيلة خاصة خالية من الجلوتين، وبرضه عندنا حلويات بسكر صحي بديل. تقدري تطلبيها من المتجر أو تذكريها في ملاحظات الطلب.',
+        'faq.q3': 'إيه سياسة الاسترجاع والاستبدال؟',
+        'faq.a3': 'لو حصل أي مشكلة في الطلب، تواصلي معانا خلال 24 ساعة من الاستلام وهنحل المشكلة فورًا. نضمن جودة منتجاتنا 100%.',
+        'faq.q4': 'إزاي أحصل على شهادة باسم طفلي؟',
+        'faq.a4': 'بكل سهولة! في نموذج الطلب هتلاقي خانة "اسم الطفل للشهادة". اكتبي اسم طفلك، وهنضيف الشهادة مع الطلب مجانًا.',
+        'order.tag': 'إتمام الطلب',
+        'order.title': 'اطلبي دلوقتي',
+        'order.desc': 'املي بياناتك، اختاري طريقة التوصيل والدفع، وهنبعتلك حلاويتك بأسرع وقت.',
+        'order.step1': 'بياناتك',
+        'order.step2': 'التوصيل',
+        'order.step3': 'الدفع',
+        'order.step4': 'تأكيد',
+        'order.name': 'الاسم بالكامل',
+        'order.childName': 'اسم الطفل للشهادة 🏆',
+        'order.childPlaceholder': 'مثال: يوسف',
+        'order.country': 'الدولة',
+        'order.phone': 'رقم الموبايل',
+        'order.city': 'المدينة',
+        'order.address': 'العنوان بالتفصيل',
+        'order.notes': 'ملاحظات على الطلب (اختياري)',
+        'order.deliveryLabel': 'طريقة التوصيل',
+        'delivery.standard.name': 'توصيل عادي',
+        'delivery.standard.desc': '2-3 أيام • 30 جنيه',
+        'delivery.express.name': 'توصيل سريع',
+        'delivery.express.desc': 'خلال 24 ساعة • 60 جنيه',
+        'delivery.pickup.name': 'استلام من المحل',
+        'delivery.pickup.desc': 'مجاني',
+        'order.paymentLabel': 'طريقة الدفع',
+        'pay.cash': 'الدفع عند الاستلام',
+        'pay.card': 'فيزا / ماستركارد',
+        'pay.wallet': 'محفظة موبايل',
+        'order.summaryTitle': 'ملخص طلبك',
+        'cart.empty': 'السلة فاضية.. ضيفي منتجات من المتجر فوق 🍬',
+        'order.subtotal': 'الإجمالي الفرعي',
+        'currency': 'جنيه',
+        'order.deliveryFee': 'رسوم التوصيل',
+        'order.total': 'الإجمالي الكلي',
+        'order.submit': 'تأكيد الطلب',
+        'footer.about': 'Sweetoria براند حلويات مصمم خصيصًا للأطفال.. سحر في كل قضمة، وفرحة في كل طلب، وشهادة لكل بطل صغير.',
+        'footer.explore': 'تصفحي',
+        'footer.contact': 'تواصلي معنا',
+        'footer.follow': 'تابعينا',
+        'footer.rights': '© 2026 Sweetoria — Magic in Every Bite. جميع الحقوق محفوظة.',
+        'footer.dev': 'برمجة وتطوير: إسراء ربيع',
+      },
+      en: {
+        'nav.about': 'About Us',
+        'nav.shop': 'Shop',
+        'nav.bundles': 'Bundles',
+        'nav.game': 'Play & Win',
+        'nav.designer': 'Cake Designer',
+        'nav.order': 'Order Now',
+        'nav.certificate': 'Certificates',
+        'nav.blog': 'Blog',
+        'nav.faq': 'FAQ',
+        'nav.cart': 'Cart',
+        'hero.eyebrow': 'Handmade sweets for your kids with love',
+        'hero.title': 'Magic <span>in Every Bite</span> — Welcome to Sweetoria',
+        'hero.lead': 'Sweets made with love, games with real prizes, and a cake you can design yourself. Sweetoria\'s colorful world is all here.',
+        'hero.cta1': 'Play & Win a Gift',
+        'hero.cta2': 'Shop Products',
+        'hero.badge1': '100% Natural',
+        'hero.badge2': 'Weekly Gift',
+        'coupon.title': 'Spend 1000 EGP & get 15% off coupon!',
+        'coupon.sub': '1000 EGP left for your coupon',
+        'about.tag': 'Sweetoria Story',
+        'about.title': 'How the Story Began?',
+        'about.desc': 'Every brand has a story, and Sweetoria started from a simple dream: to make sweets that make kids smile.',
+        'about.storyTitle': 'From a Small Kitchen.. to a World Full of Sugar & Joy',
+        'about.story1': 'It all started when we noticed that most commercial sweets are full of artificial colors and preservatives, so we decided to do something different. We started in a small kitchen, experimenting with our own recipes to achieve the best taste and texture.',
+        'about.story2': 'Over time, mothers started asking us to make sweets for their kids at parties and events, and that was our big step: launching Sweetoria as a complete brand offering healthy and delicious sweets.',
+        'about.story3': 'Today, Sweetoria is not just sweets.. it\'s a complete experience: a game, a design, and a certificate for every child who orders from us. Because every child deserves to be a hero in their parents\' eyes.',
+        'values.tag': 'Our Values',
+        'values.title': 'What Makes Us Special?',
+        'value1.title': 'Natural Ingredients',
+        'value1.desc': 'No harmful artificial colors, and every sweet is carefully tested',
+        'value2.title': 'Made for Kids',
+        'value2.desc': 'Shapes, colors, and sizes suitable for your child\'s age',
+        'value3.title': 'Interactive Experience',
+        'value3.desc': 'From design to play.. your child is part of the experience, not just eating',
+        'value4.title': 'Fast & Safe Delivery',
+        'value4.desc': 'Secure packaging keeps sweets fresh until they reach your doorstep',
+        'testimonials.tag': 'Customer Reviews',
+        'testimonials.title': 'What Do They Say About Sweetoria?',
+        'testimonials.desc': 'People\'s words always make you trust more. See what mothers who tried our products say.',
+        'test1.quote': '"First time I find sweets that my daughter loves with no artificial colors.. the taste is amazing!"',
+        'test1.name': '— Umm Youssef',
+        'test1.role': 'Mother of two',
+        'test2.quote': '"The cake I designed myself arrived exactly as I imagined. Absolutely perfect!"',
+        'test2.name': '— Sara',
+        'test2.role': 'Regular customer',
+        'test3.quote': '"A certificate with my child\'s name with the order? That\'s the best thing.. it made me feel they care about every detail."',
+        'test3.name': '— Norhan',
+        'test3.role': 'Mother of three',
+        'shop.tag': 'Shop',
+        'shop.title': 'Choose Your Favorite Sweets',
+        'shop.desc': 'Every piece at Sweetoria comes in a small bag full of colors and magic.. just like you see in our logo.',
+        'shop.filter.all': 'All',
+        'shop.filter.lolly': 'Lollipop',
+        'shop.filter.gummy': 'Gummy',
+        'shop.filter.choco': 'Chocolate',
+        'shop.filter.cake': 'Cake',
+        'bundles.tag': 'Bundles & Offers',
+        'bundles.title': 'Special Offers for Parties & Events',
+        'bundles.desc': 'Choose the right bundle for you and save money with the sweetest collection.',
+        'bundle1.name': 'Small Party Bundle',
+        'bundle1.desc': '20 assorted sweets + small cake + certificates for kids',
+        'bundle2.name': 'Birthday Bundle',
+        'bundle2.desc': 'Custom cake + 30 sweets + balloons + certificate with your child\'s name',
+        'bundle3.name': 'Corporate & Gifts Bundle',
+        'bundle3.desc': 'Luxury gift boxes with Sweetoria sweets + logo customization',
+        'game.tag': 'Weekly Challenge',
+        'game.title': 'Candy Memory Game 🍭',
+        'game.desc': 'Match every pair of sweets before the timer runs out. The game is a bit challenging.. but if you win, you\'ll get a real gift from Sweetoria!',
+        'game.days': 'Days',
+        'game.hours': 'Hours',
+        'game.mins': 'Mins',
+        'game.secs': 'Secs',
+        'game.status.start': 'Press "Start Game" and you have only 40 seconds!',
+        'game.start': 'Start Game',
+        'game.reset': 'Reset',
+        'prize.title': 'Congratulations! You Won the Gift 🎉',
+        'prize.desc': 'Use this code when placing your first order and get a free gift with your order.',
+        'prize.close': 'Awesome, let\'s shop',
+        'designer.tag': 'Design Your Cake',
+        'designer.title': 'Draw the Cake of Your Dreams',
+        'designer.desc': 'Use the brush and shape tools, send us your drawing.. and we\'ll turn it into a real cake!',
+        'designer.freehand': 'Free Draw',
+        'designer.erase': 'Eraser',
+        'designer.clear': 'Clear All',
+        'designer.shapesLabel': 'Shape Tools:',
+        'designer.save': 'Save Your Design',
+        'designer.helper.title': 'Drawing Helpers',
+        'designer.helper.desc2': 'Click any shape tool below the canvas, then click and drag on the canvas to draw the shape directly.. just like using a real stencil!',
+        'helper1.name': 'Free Draw',
+        'helper1.desc': 'Draw freely with any color and brush size',
+        'helper2.name': 'Square & Circle Tools',
+        'helper2.desc': 'For cake bases and basic decorations',
+        'helper3.name': 'Decoration Tools',
+        'helper3.desc': 'Heart, star, candle, flower, butterfly — everything for your dream cake',
+        'helper4.name': 'Eraser',
+        'helper4.desc': 'Easily edit any part of your drawing',
+        'videos.tag': 'From Our Kitchen to Yours',
+        'videos.title': 'How We Make Our Sweets Healthily',
+        'videos.desc': 'See for yourself every step.. from ingredient selection to packaging.',
+        'videos.comingsoon': 'Video will be uploaded here soon',
+        'blog.tag': 'Sweetoria Blog',
+        'blog.title': 'Recipes & Tips from Our Kitchen',
+        'blog.desc': 'Try making healthy sweets for your kids at home with our easy recipes.',
+        'blog.tag1': 'Recipes',
+        'blog.title1': 'Oatmeal Chocolate Cookies',
+        'blog.desc1': 'An easy and quick recipe with ingredients available in every home.. you and your kids will love it!',
+        'blog.tag2': 'Tips',
+        'blog.title2': 'How to Make Your Cake Artistic?',
+        'blog.desc2': 'Simple tips for decorating cake at home like a pro.. without high cost.',
+        'blog.tag3': 'Success Stories',
+        'blog.title3': 'Umm Youssef\'s Success Story with Sweetoria',
+        'blog.desc3': 'How Umm Youssef turned her love for sweets into a successful project with Sweetoria.',
+        'blog.readmore': 'Read More →',
+        'loyalty.tag': 'Loyalty Program',
+        'loyalty.title': 'Every Order.. a Point for You!',
+        'loyalty.desc': 'Collect points with every order and redeem them for discounts and real gifts from Sweetoria.',
+        'loyalty1.title': '1 Point per 10 EGP',
+        'loyalty1.desc': 'The more you shop, the more points you earn and reach higher levels.',
+        'loyalty2.title': 'Free Gift at 100 Points',
+        'loyalty2.desc': 'Once you reach 100 points, you\'ll get a free gift with your next order.',
+        'loyalty3.title': '10% Off at 250 Points',
+        'loyalty3.desc': 'Reach VIP level and get 10% off on all your future orders.',
+        'loyalty4.title': 'Free Cake at 500 Points',
+        'loyalty4.desc': 'The biggest reward in the program: a fully customized free cake!',
+        'certificate.tag': 'Certificates of Appreciation',
+        'certificate.title': 'Every Child is a Hero in Our Eyes 🏆',
+        'certificate.desc': 'At Sweetoria, every child who orders from us deserves a special certificate with their name. See the certificate template that will be sent with their order!',
+        'certificate.demoTitle': '🎖️ Sweetoria Certificate Sample',
+        'certificate.demoDesc': 'The certificate is added for free with every order, and is sent with your child\'s name. So every child feels special!',
+        'certificate.howto': '💡 To get the certificate with your child\'s name, write their name in the "Child\'s name for certificate" field in the order form.',
+        'faq.tag': 'Frequently Asked Questions',
+        'faq.title': 'Answers to Your Top Questions',
+        'faq.desc': 'If you have another question, you can contact us on WhatsApp or email.',
+        'faq.q1': 'How do you keep sweets fresh during delivery?',
+        'faq.a1': 'We use sealed and insulated packaging, and ship orders on the same day so they arrive fresh just like they came out of the kitchen.',
+        'faq.q2': 'Do you have gluten-free or sugar-free options?',
+        'faq.a2': 'Yes! We have a special gluten-free collection, and we also have sweets with healthy sugar alternatives. You can order them from the shop or mention them in your order notes.',
+        'faq.q3': 'What is your return and exchange policy?',
+        'faq.a3': 'If there is any issue with your order, contact us within 24 hours of receipt and we will resolve it immediately. We guarantee 100% quality of our products.',
+        'faq.q4': 'How do I get a certificate with my child\'s name?',
+        'faq.a4': 'Easy! In the order form, you\'ll find a field "Child\'s name for certificate". Write your child\'s name, and we\'ll add the certificate to your order for free.',
+        'order.tag': 'Complete Order',
+        'order.title': 'Order Now',
+        'order.desc': 'Fill in your details, choose delivery and payment methods, and we\'ll send your sweets as fast as possible.',
+        'order.step1': 'Your Info',
+        'order.step2': 'Delivery',
+        'order.step3': 'Payment',
+        'order.step4': 'Confirm',
+        'order.name': 'Full Name',
+        'order.childName': 'Child\'s Name for Certificate 🏆',
+        'order.childPlaceholder': 'e.g. Youssef',
+        'order.country': 'Country',
+        'order.phone': 'Phone Number',
+        'order.city': 'City',
+        'order.address': 'Full Address',
+        'order.notes': 'Order Notes (optional)',
+        'order.deliveryLabel': 'Delivery Method',
+        'delivery.standard.name': 'Standard Delivery',
+        'delivery.standard.desc': '2-3 days • 30 EGP',
+        'delivery.express.name': 'Express Delivery',
+        'delivery.express.desc': 'Within 24 hours • 60 EGP',
+        'delivery.pickup.name': 'Store Pickup',
+        'delivery.pickup.desc': 'Free',
+        'order.paymentLabel': 'Payment Method',
+        'pay.cash': 'Cash on Delivery',
+        'pay.card': 'Visa / Mastercard',
+        'pay.wallet': 'Mobile Wallet',
+        'order.summaryTitle': 'Order Summary',
+        'cart.empty': 'Cart is empty.. add products from the shop above 🍬',
+        'order.subtotal': 'Subtotal',
+        'currency': 'EGP',
+        'order.deliveryFee': 'Delivery Fee',
+        'order.total': 'Total',
+        'order.submit': 'Confirm Order',
+        'footer.about': 'Sweetoria is a sweet brand designed especially for kids.. magic in every bite, joy in every order, and a certificate for every little hero.',
+        'footer.explore': 'Explore',
+        'footer.contact': 'Contact Us',
+        'footer.follow': 'Follow Us',
+        'footer.rights': '© 2026 Sweetoria — Magic in Every Bite. All rights reserved.',
+        'footer.dev': 'Developed by: Israa Rabie',
+      },
+      de: {
+        'nav.about': 'Über uns',
+        'nav.shop': 'Shop',
+        'nav.bundles': 'Pakete',
+        'nav.game': 'Spielen & Gewinnen',
+        'nav.designer': 'Torten-Designer',
+        'nav.order': 'Jetzt bestellen',
+        'nav.certificate': 'Urkunden',
+        'nav.blog': 'Blog',
+        'nav.faq': 'FAQ',
+        'nav.cart': 'Warenkorb',
+        'hero.eyebrow': 'Mit Liebe gemachte Süßigkeiten für Ihre Kinder',
+        'hero.title': 'Magie <span>in jedem Bissen</span> — Willkommen bei Sweetoria',
+        'hero.lead': 'Süßigkeiten mit Liebe gemacht, Spiele mit echten Preisen und eine Torte, die Sie selbst gestalten können. Sweetorias bunte Welt ist hier.',
+        'hero.cta1': 'Spielen & Gewinnen',
+        'hero.cta2': 'Produkte shoppen',
+        'hero.badge1': '100% natürlich',
+        'hero.badge2': 'Wöchentliches Geschenk',
+        'coupon.title': 'Kaufe für 1000 EGP und erhalte 15% Rabatt!',
+        'coupon.sub': 'Noch 1000 EGP für deinen Gutschein',
+        'about.tag': 'Sweetoria Geschichte',
+        'about.title': 'Wie die Geschichte begann?',
+        'about.desc': 'Jede Marke hat eine Geschichte, und Sweetoria begann mit einem einfachen Traum: Süßigkeiten zu machen, die Kinder zum Lächeln bringen.',
+        'about.storyTitle': 'Aus einer kleinen Küche.. in eine Welt voller Zucker und Freude',
+        'about.story1': 'Alles begann, als wir bemerkten, dass die meisten kommerziellen Süßigkeiten voller künstlicher Farbstoffe und Konservierungsstoffe sind. Also beschlossen wir, etwas anderes zu machen. Wir begannen in einer kleinen Küche und experimentierten mit eigenen Rezepten, um den besten Geschmack und die beste Textur zu erreichen.',
+        'about.story2': 'Mit der Zeit baten uns Mütter, Süßigkeiten für ihre Kinder bei Partys und Veranstaltungen zu machen, und das war unser großer Schritt: Sweetoria als vollständige Marke zu gründen, die gesunde und köstliche Süßigkeiten anbietet.',
+        'about.story3': 'Heute ist Sweetoria nicht nur Süßigkeiten.. es ist ein vollständiges Erlebnis: ein Spiel, ein Design und eine Urkunde für jedes Kind, das bei uns bestellt. Denn jedes Kind verdient es, ein Held in den Augen seiner Eltern zu sein.',
+        'values.tag': 'Unsere Werte',
+        'values.title': 'Was macht uns besonders?',
+        'value1.title': 'Natürliche Zutaten',
+        'value1.desc': 'Ohne schädliche künstliche Farbstoffe, jede Süßigkeit wird sorgfältig getestet',
+        'value2.title': 'Für Kinder gemacht',
+        'value2.desc': 'Formen, Farben und Größen passend für das Alter Ihres Kindes',
+        'value3.title': 'Interaktives Erlebnis',
+        'value3.desc': 'Vom Design zum Spiel.. Ihr Kind ist Teil des Erlebnisses, nicht nur am Essen',
+        'value4.title': 'Schnelle & sichere Lieferung',
+        'value4.desc': 'Sichere Verpackung hält Süßigkeiten frisch bis zur Haustür',
+        'testimonials.tag': 'Kundenbewertungen',
+        'testimonials.title': 'Was sagen sie über Sweetoria?',
+        'testimonials.desc': 'Die Worte der Menschen lassen Sie immer mehr vertrauen. Sehen Sie, was Mütter sagen, die unsere Produkte ausprobiert haben.',
+        'test1.quote': '"Zum ersten Mal finde ich Süßigkeiten, die meiner Tochter gefallen und keine künstlichen Farbstoffe enthalten.. der Geschmack ist unglaublich!"',
+        'test1.name': '— Umm Youssef',
+        'test1.role': 'Mutter von zwei Kindern',
+        'test2.quote': '"Die Torte, die ich selbst entworfen habe, kam genau so an, wie ich es mir vorgestellt habe. Absolut perfekt!"',
+        'test2.name': '— Sara',
+        'test2.role': 'Stammkundin',
+        'test3.quote': '"Eine Urkunde mit dem Namen meines Kindes bei der Bestellung? Das ist das Beste.. es hat mir das Gefühl gegeben, dass sie sich um jedes Detail kümmern."',
+        'test3.name': '— Norhan',
+        'test3.role': 'Mutter von drei Kindern',
+        'shop.tag': 'Shop',
+        'shop.title': 'Wähle deine Lieblingssüßigkeiten',
+        'shop.desc': 'Jedes Stück bei Sweetoria kommt in einer kleinen Tüte voller Farben und Magie.. genau wie du es in unserem Logo siehst.',
+        'shop.filter.all': 'Alle',
+        'shop.filter.lolly': 'Lutscher',
+        'shop.filter.gummy': 'Gummi',
+        'shop.filter.choco': 'Schokolade',
+        'shop.filter.cake': 'Torte',
+        'bundles.tag': 'Pakete & Angebote',
+        'bundles.title': 'Spezielle Angebote für Partys & Veranstaltungen',
+        'bundles.desc': 'Wähle das passende Paket für dich und spare Geld mit der süßesten Kollektion.',
+        'bundle1.name': 'Kleine Party-Paket',
+        'bundle1.desc': '20 gemischte Süßigkeiten + kleine Torte + Urkunden für Kinder',
+        'bundle2.name': 'Geburtstagspaket',
+        'bundle2.desc': 'Individuelle Torte + 30 Süßigkeiten + Ballons + Urkunde mit Namen deines Kindes',
+        'bundle3.name': 'Firmen- & Geschenkpaket',
+        'bundle3.desc': 'Luxus-Geschenkboxen mit Sweetoria-Süßigkeiten + Logo-Anpassung',
+        'game.tag': 'Wöchentliche Herausforderung',
+        'game.title': 'Süßigkeiten-Memory-Spiel 🍭',
+        'game.desc': 'Finde jedes Paar Süßigkeiten, bevor die Zeit abläuft. Das Spiel ist etwas anspruchsvoll.. aber wenn du gewinnst, erhältst du ein echtes Geschenk von Sweetoria!',
+        'game.days': 'Tage',
+        'game.hours': 'Stunden',
+        'game.mins': 'Minuten',
+        'game.secs': 'Sekunden',
+        'game.status.start': 'Drücke "Spiel starten" und du hast nur 40 Sekunden!',
+        'game.start': 'Spiel starten',
+        'game.reset': 'Zurücksetzen',
+        'prize.title': 'Glückwunsch! Du hast das Geschenk gewonnen 🎉',
+        'prize.desc': 'Verwende diesen Code bei deiner ersten Bestellung und erhalte ein kostenloses Geschenk zu deiner Bestellung.',
+        'prize.close': 'Super, lass uns einkaufen',
+        'designer.tag': 'Gestalte deine Torte',
+        'designer.title': 'Zeichne die Torte deiner Träume',
+        'designer.desc': 'Benutze den Pinsel und die Formwerkzeuge, sende uns deine Zeichnung.. und wir verwandeln sie in eine echte Torte!',
+        'designer.freehand': 'Freihand',
+        'designer.erase': 'Radiergummi',
+        'designer.clear': 'Alles löschen',
+        'designer.shapesLabel': 'Formwerkzeuge:',
+        'designer.save': 'Design speichern',
+        'designer.helper.title': 'Zeichenhilfen',
+        'designer.helper.desc2': 'Klicke auf ein Formwerkzeug unter der Leinwand, dann klicke und ziehe auf der Leinwand, um die Form direkt zu zeichnen.. genau wie bei einer echten Schablone!',
+        'helper1.name': 'Freihand',
+        'helper1.desc': 'Zeichne frei mit jeder Farbe und Pinselgröße',
+        'helper2.name': 'Quadrat & Kreis',
+        'helper2.desc': 'Für Tortenböden und grundlegende Dekorationen',
+        'helper3.name': 'Dekorationswerkzeuge',
+        'helper3.desc': 'Herz, Stern, Kerze, Blume, Schmetterling — alles für deine Traumtorte',
+        'helper4.name': 'Radiergummi',
+        'helper4.desc': 'Bearbeite einfach jeden Teil deiner Zeichnung',
+        'videos.tag': 'Aus unserer Küche zu dir',
+        'videos.title': 'Wie wir unsere Süßigkeiten gesund herstellen',
+        'videos.desc': 'Sieh selbst jeden Schritt.. von der Zutatenauswahl bis zur Verpackung.',
+        'videos.comingsoon': 'Video wird hier bald hochgeladen',
+        'blog.tag': 'Sweetoria Blog',
+        'blog.title': 'Rezepte & Tipps aus unserer Küche',
+        'blog.desc': 'Probiere, selbst gesunde Süßigkeiten für deine Kinder zu Hause mit unseren einfachen Rezepten zu machen.',
+        'blog.tag1': 'Rezepte',
+        'blog.title1': 'Haferflocken-Schokoladenkekse',
+        'blog.desc1': 'Ein einfaches und schnelles Rezept mit Zutaten aus jedem Haushalt.. du und deine Kinder werden es lieben!',
+        'blog.tag2': 'Tipps',
+        'blog.title2': 'Wie machst du deine Torte künstlerisch?',
+        'blog.desc2': 'Einfache Tipps zum Verzieren von Torten zu Hause wie ein Profi.. ohne hohe Kosten.',
+        'blog.tag3': 'Erfolgsgeschichten',
+        'blog.title3': 'Umm Youssefs Erfolgsgeschichte mit Sweetoria',
+        'blog.desc3': 'Wie Umm Youssef ihre Liebe zu Süßigkeiten in ein erfolgreiches Projekt mit Sweetoria verwandelte.',
+        'blog.readmore': 'Weiterlesen →',
+        'loyalty.tag': 'Treueprogramm',
+        'loyalty.title': 'Jede Bestellung.. ein Punkt für dich!',
+        'loyalty.desc': 'Sammle Punkte mit jeder Bestellung und tausche sie gegen Rabatte und echte Geschenke von Sweetoria ein.',
+        'loyalty1.title': '1 Punkt pro 10 EGP',
+        'loyalty1.desc': 'Je mehr du einkaufst, desto mehr Punkte sammelst du und erreichst höhere Stufen.',
+        'loyalty2.title': 'Kostenloses Geschenk bei 100 Punkten',
+        'loyalty2.desc': 'Sobald du 100 Punkte erreichst, erhältst du ein kostenloses Geschenk zu deiner nächsten Bestellung.',
+        'loyalty3.title': '10% Rabatt bei 250 Punkten',
+        'loyalty3.desc': 'Erreiche VIP-Level und erhalte 10% Rabatt auf alle deine zukünftigen Bestellungen.',
+        'loyalty4.title': 'Kostenlose Torte bei 500 Punkten',
+        'loyalty4.desc': 'Die größte Belohnung im Programm: eine vollständig individuell gestaltete kostenlose Torte!',
+        'certificate.tag': 'Urkunden',
+        'certificate.title': 'Jedes Kind ist ein Held in unseren Augen 🏆',
+        'certificate.desc': 'Bei Sweetoria verdient jedes Kind, das bei uns bestellt, eine besondere Urkunde mit seinem Namen. Sieh dir die Urkundenvorlage an, die mit der Bestellung versendet wird!',
+        'certificate.demoTitle': '🎖️ Sweetoria Urkunde - Muster',
+        'certificate.demoDesc': 'Die Urkunde wird kostenlos zu jeder Bestellung hinzugefügt und mit dem Namen deines Kindes versendet. Damit sich jedes Kind besonders fühlt!',
+        'certificate.howto': '💡 Um die Urkunde mit dem Namen deines Kindes zu erhalten, schreibe seinen Namen in das Feld "Name des Kindes für die Urkunde" im Bestellformular.',
+        'faq.tag': 'Häufig gestellte Fragen',
+        'faq.title': 'Antworten auf deine wichtigsten Fragen',
+        'faq.desc': 'Wenn du eine andere Frage hast, kannst du uns auf WhatsApp oder per E-Mail kontaktieren.',
+        'faq.q1': 'Wie haltet ihr die Süßigkeiten während der Lieferung frisch?',
+        'faq.a1': 'Wir verwenden versiegelte und isolierte Verpackungen und versenden Bestellungen am selben Tag, damit sie frisch ankommen, genau wie sie aus der Küche gekommen sind.',
+        'faq.q2': 'Habt ihr glutenfreie oder zuckerfreie Optionen?',
+        'faq.a2': 'Ja! Wir haben eine spezielle glutenfreie Kollektion und auch Süßigkeiten mit gesunden Zuckerersatzstoffen. Du kannst sie im Shop bestellen oder in deinen Bestellnotizen erwähnen.',
+        'faq.q3': 'Was ist eure Rückgabe- und Umtauschpolitik?',
+        'faq.a3': 'Wenn es ein Problem mit deiner Bestellung gibt, kontaktiere uns innerhalb von 24 Stunden nach Erhalt und wir werden es sofort lösen. Wir garantieren 100% Qualität unserer Produkte.',
+        'faq.q4': 'Wie bekomme ich eine Urkunde mit dem Namen meines Kindes?',
+        'faq.a4': 'Einfach! Im Bestellformular findest du ein Feld "Name des Kindes für die Urkunde". Schreibe den Namen deines Kindes und wir fügen die Urkunde kostenlos zu deiner Bestellung hinzu.',
+        'order.tag': 'Bestellung abschließen',
+        'order.title': 'Jetzt bestellen',
+        'order.desc': 'Fülle deine Daten aus, wähle Liefer- und Zahlungsmethode, und wir senden dir deine Süßigkeiten so schnell wie möglich.',
+        'order.step1': 'Deine Daten',
+        'order.step2': 'Lieferung',
+        'order.step3': 'Zahlung',
+        'order.step4': 'Bestätigen',
+        'order.name': 'Vollständiger Name',
+        'order.childName': 'Name des Kindes für Urkunde 🏆',
+        'order.childPlaceholder': 'z.B. Youssef',
+        'order.country': 'Land',
+        'order.phone': 'Telefonnummer',
+        'order.city': 'Stadt',
+        'order.address': 'Vollständige Adresse',
+        'order.notes': 'Bestellnotizen (optional)',
+        'order.deliveryLabel': 'Liefermethode',
+        'delivery.standard.name': 'Standardlieferung',
+        'delivery.standard.desc': '2-3 Tage • 30 EGP',
+        'delivery.express.name': 'Expresslieferung',
+        'delivery.express.desc': 'Innerhalb 24 Stunden • 60 EGP',
+        'delivery.pickup.name': 'Abholung im Store',
+        'delivery.pickup.desc': 'Kostenlos',
+        'order.paymentLabel': 'Zahlungsmethode',
+        'pay.cash': 'Barzahlung bei Lieferung',
+        'pay.card': 'Visa / Mastercard',
+        'pay.wallet': 'Mobile Wallet',
+        'order.summaryTitle': 'Bestellübersicht',
+        'cart.empty': 'Warenkorb ist leer.. füge Produkte aus dem Shop oben hinzu 🍬',
+        'order.subtotal': 'Zwischensumme',
+        'currency': 'EGP',
+        'order.deliveryFee': 'Liefergebühr',
+        'order.total': 'Gesamt',
+        'order.submit': 'Bestellung bestätigen',
+        'footer.about': 'Sweetoria ist eine Süßwarenmarke, die speziell für Kinder entwickelt wurde.. Magie in jedem Bissen, Freude in jeder Bestellung und eine Urkunde für jeden kleinen Helden.',
+        'footer.explore': 'Entdecken',
+        'footer.contact': 'Kontaktiere uns',
+        'footer.follow': 'Folge uns',
+        'footer.rights': '© 2026 Sweetoria — Magic in Every Bite. Alle Rechte vorbehalten.',
+        'footer.dev': 'Entwickelt von: Israa Rabie',
+      }
+    };
+
+    let currentLang = 'ar';
+
+    function setLang(lang) {
+      currentLang = lang;
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.dataset.i18n;
+        if (i18n[lang] && i18n[lang][key]) {
+          el.innerHTML = i18n[lang][key];
+        }
+      });
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.dataset.i18nPlaceholder;
+        if (i18n[lang] && i18n[lang][key]) {
+          el.placeholder = i18n[lang][key];
+        }
+      });
+      document.querySelectorAll('.lang-switch button').forEach(b => {
+        b.classList.toggle('active', b.dataset.lang === lang);
+      });
+      document.body.className = document.body.className.replace(/lang-\w+/g, '') + ' lang-' + lang;
+      document.documentElement.dir = (lang === 'ar') ? 'rtl' : 'ltr';
+      document.documentElement.lang = lang;
+    }
+
+    document.querySelectorAll('.lang-switch button').forEach(btn => {
+      btn.addEventListener('click', () => setLang(btn.dataset.lang));
+    });
+    setLang('ar');
+
+    // ---------- TOAST ----------
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.innerHTML = msg;
+      t.classList.add('show');
+      clearTimeout(t._hide);
+      t._hide = setTimeout(() => t.classList.remove('show'), 3000);
+    }
+
+    // ---------- CART ----------
+    let cart = [];
+    let cartCount = 0;
+    const cartCountEl = document.getElementById('cartCount');
+
+    function updateCartUI() {
+      cartCount = cart.reduce((sum, item) => sum + item.qty, 0);
+      cartCountEl.textContent = cartCount;
+      const lines = document.getElementById('cartLines');
+      const subtotalEl = document.getElementById('subtotalVal');
+      const totalEl = document.getElementById('totalVal');
+      const deliveryFeeEl = document.getElementById('deliveryVal');
+
+      let subtotal = 0;
+      if (cart.length === 0) {
+        lines.innerHTML = `<div class="cart-empty" data-i18n="cart.empty">السلة فاضية.. ضيفي منتجات من المتجر فوق 🍬</div>`;
+      } else {
+        lines.innerHTML = cart.map((item, idx) => `
+          <div class="cart-line">
+            <span class="cl-name">${item.name} × ${item.qty}</span>
+            <span>${item.price * item.qty} ${i18n[currentLang]['currency'] || 'جنيه'}</span>
+            <span class="cl-remove" data-idx="${idx}">✕</span>
+          </div>
+        `).join('');
+        lines.querySelectorAll('.cl-remove').forEach(el => {
+          el.addEventListener('click', function() {
+            const idx = parseInt(this.dataset.idx);
+            cart.splice(idx, 1);
+            updateCartUI();
+            updateCouponProgress();
+          });
+        });
+        subtotal = cart.reduce((s, i) => s + i.price * i.qty, 0);
+      }
+
+      subtotalEl.innerHTML = `${subtotal} <span data-i18n="currency">${i18n[currentLang]['currency'] || 'جنيه'}</span>`;
+      const fee = parseInt(document.querySelector('.delivery-opt.selected')?.dataset.fee || 0);
+      deliveryFeeEl.innerHTML = `${fee} <span data-i18n="currency">${i18n[currentLang]['currency'] || 'جنيه'}</span>`;
+      totalEl.innerHTML = `${subtotal + fee} <span data-i18n="currency">${i18n[currentLang]['currency'] || 'جنيه'}</span>`;
+    }
+
+    function addToCart(name, price, emoji) {
+      const existing = cart.find(i => i.name === name);
+      if (existing) {
+        existing.qty++;
+      } else {
+        cart.push({ name, price, qty: 1, emoji });
+      }
+      updateCartUI();
+      updateCouponProgress();
+      showToast(`🍬 تم إضافة ${name} للسلة!`);
+    }
+
+    // ---------- COUPON PROGRESS ----------
+    function updateCouponProgress() {
+      const subtotal = cart.reduce((s, i) => s + i.price * i.qty, 0);
+      const target = 1000;
+      const pct = Math.min((subtotal / target) * 100, 100);
+      document.getElementById('couponFill').style.width = pct + '%';
+      const remaining = Math.max(target - subtotal, 0);
+      document.getElementById('couponSub').textContent = remaining === 0 ?
+        '🎉 كسبتي الكوبون! استخدميه في الدفع' :
+        `باقي ${remaining} جنيه على الكوبون بتاعك`;
+    }
+
+    // ---------- PRODUCTS ----------
+    const products = [
+      { id: 1, name: 'لوليبوب فراولة', price: 25, category: 'lolly', emoji: '🍓', badge: 'طبيعي' },
+      { id: 2, name: 'لوليبوب مانجو', price: 25, category: 'lolly', emoji: '🥭', badge: 'طبيعي' },
+      { id: 3, name: 'لوليبوب عنب', price: 25, category: 'lolly', emoji: '🍇', badge: 'طبيعي' },
+      { id: 4, name: 'جيلي فراولة', price: 30, category: 'gummy', emoji: '🍓', badge: 'خالي من الجلوتين' },
+      { id: 5, name: 'جيلي مانجو', price: 30, category: 'gummy', emoji: '🥭', badge: 'خالي من الجلوتين' },
+      { id: 6, name: 'جيلي عنب', price: 30, category: 'gummy', emoji: '🍇', badge: 'خالي من الجلوتين' },
+      { id: 7, name: 'شوكولاتة بالبندق', price: 45, category: 'choco', emoji: '🍫', badge: 'سكر صحي' },
+      { id: 8, name: 'شوكولاتة بالحليب', price: 40, category: 'choco', emoji: '🥛', badge: 'سكر صحي' },
+      { id: 9, name: 'شوكولاتة داكنة', price: 50, category: 'choco', emoji: '🍫', badge: 'سكر صحي' },
+      { id: 10, name: 'تورتة فراولة', price: 180, category: 'cake', emoji: '🍰', badge: 'طازجة' },
+      { id: 11, name: 'تورتة شوكولاتة', price: 200, category: 'cake', emoji: '🎂', badge: 'طازجة' },
+      { id: 12, name: 'تورتة فانيليا', price: 160, category: 'cake', emoji: '🧁', badge: 'طازجة' },
+    ];
+
+    function renderProducts(filter = 'all') {
+      const grid = document.getElementById('productGrid');
+      const filtered = filter === 'all' ? products : products.filter(p => p.category === filter);
+      grid.innerHTML = filtered.map(p => `
+        <div class="product-card" data-category="${p.category}">
+          <div class="product-img" style="background:linear-gradient(135deg, var(--cream), var(--blush));">
+            ${p.emoji}
+            ${p.badge ? `<span class="product-badge">${p.badge}</span>` : ''}
+          </div>
+          <div class="product-body">
+            <h4>${p.name}</h4>
+            <p>حلوى لذيذة ومصنوعة بمكونات طبيعية آمنة للأطفال.</p>
+            <div class="product-foot">
+              <span class="price">${p.price} <span data-i18n="currency">${i18n[currentLang]['currency'] || 'جنيه'}</span></span>
+              <button class="add-btn" data-id="${p.id}">+</button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+
+      grid.querySelectorAll('.add-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const id = parseInt(this.dataset.id);
+          const p = products.find(pr => pr.id === id);
+          if (p) addToCart(p.name, p.price, p.emoji);
+        });
+      });
+    }
+
+    document.querySelectorAll('.filter-chip').forEach(chip => {
+      chip.addEventListener('click', function() {
+        document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+        this.classList.add('active');
+        renderProducts(this.dataset.filter);
+      });
+    });
+
+    renderProducts('all');
+
+    // ---------- MEMORY GAME ----------
+    const memoryEmojis = ['🍭', '🍬', '🍫', '🍩', '🧁', '🎂', '🍪', '🥨'];
+    let gameCards = [];
+    let flipped = [];
+    let matched = [];
+    let gameRunning = false;
+    let gameTimer = null;
+    let gameSeconds = 40;
+
+    function buildMemoryBoard() {
+      const board = document.getElementById('memoryBoard');
+      const doubled = [...memoryEmojis, ...memoryEmojis];
+      gameCards = doubled.sort(() => Math.random() - 0.5).map((emoji, i) => ({ id: i, emoji, matched: false, flipped: false }));
+      matched = [];
+      flipped = [];
+      board.innerHTML = gameCards.map((card, idx) => `
+        <div class="mem-card" data-idx="${idx}" data-emoji="${card.emoji}">❓</div>
+      `).join('');
+      board.querySelectorAll('.mem-card').forEach(el => {
+        el.addEventListener('click', () => handleCardClick(parseInt(el.dataset.idx)));
+      });
+    }
+
+    function handleCardClick(idx) {
+      if (!gameRunning) return;
+      const card = gameCards[idx];
+      if (card.matched || card.flipped) return;
+      if (flipped.length >= 2) return;
+      card.flipped = true;
+      const el = document.querySelector(`.mem-card[data-idx="${idx}"]`);
+      el.textContent = card.emoji;
+      el.classList.add('flipped');
+      flipped.push(idx);
+      if (flipped.length === 2) {
+        const idx1 = flipped[0],
+          idx2 = flipped[1];
+        const c1 = gameCards[idx1],
+          c2 = gameCards[idx2];
+        if (c1.emoji === c2.emoji) {
+          c1.matched = true;
+          c2.matched = true;
+          matched.push(idx1, idx2);
+          document.querySelector(`.mem-card[data-idx="${idx1}"]`).classList.add('matched');
+          document.querySelector(`.mem-card[data-idx="${idx2}"]`).classList.add('matched');
+          flipped = [];
+          checkWin();
+        } else {
+          setTimeout(() => {
+            c1.flipped = false;
+            c2.flipped = false;
+            document.querySelector(`.mem-card[data-idx="${idx1}"]`).textContent = '❓';
+            document.querySelector(`.mem-card[data-idx="${idx2}"]`).textContent = '❓';
+            document.querySelector(`.mem-card[data-idx="${idx1}"]`).classList.remove('flipped');
+            document.querySelector(`.mem-card[data-idx="${idx2}"]`).classList.remove('flipped');
+            flipped = [];
+          }, 800);
+        }
+      }
+    }
+
+    function checkWin() {
+      if (matched.length === gameCards.length) {
+        clearInterval(gameTimer);
+        gameRunning = false;
+        document.getElementById('gameStatus').textContent = '🎉 ألف مبروك! كسبتي الهدية! اضغطي "إعادة" للعب تاني.';
+        document.getElementById('prizeModal').classList.add('show');
+      }
+    }
+
+    function startGame() {
+      if (gameTimer) clearInterval(gameTimer);
+      buildMemoryBoard();
+      gameRunning = true;
+      gameSeconds = 40;
+      document.getElementById('gameStatus').textContent = `⏳ باقي ${gameSeconds} ثانية`;
+      gameTimer = setInterval(() => {
+        gameSeconds--;
+        document.getElementById('gameStatus').textContent = `⏳ باقي ${gameSeconds} ثانية`;
+        if (gameSeconds <= 0) {
+          clearInterval(gameTimer);
+          gameRunning = false;
+          document.getElementById('gameStatus').textContent = '⏰ انتهى الوقت! حاولي تاني..';
+          document.querySelectorAll('.mem-card').forEach(el => {
+            if (!el.classList.contains('matched')) {
+              el.textContent = '❌';
+              el.style.cursor = 'default';
+            }
+          });
+        }
+      }, 1000);
+    }
+
+    document.getElementById('startGameBtn').addEventListener('click', startGame);
+    document.getElementById('resetGameBtn').addEventListener('click', () => {
+      clearInterval(gameTimer);
+      gameRunning = false;
+      buildMemoryBoard();
+      document.getElementById('gameStatus').textContent = '🔄 تم إعادة اللعبة. اضغطي "ابدأ اللعب"';
+    });
+
+    buildMemoryBoard();
+
+    // ---------- CAKE DESIGNER ----------
+    const canvas = document.getElementById('cakeCanvas');
+    const ctx = canvas.getContext('2d');
+    let drawing = false;
+    let currentColor = '#CF2B5A';
+    let brushSize = 8;
+    let isErase = false;
+    let isFreeDraw = true;
+    let selectedShape = null;
+    let lastX, lastY;
+
+    document.querySelectorAll('.swatch').forEach(el => {
+      el.addEventListener('click', function() {
+        document.querySelectorAll('.swatch').forEach(s => s.classList.remove('active'));
+        this.classList.add('active');
+        currentColor = this.dataset.color;
+        isErase = false;
+        document.getElementById('eraseBtn').classList.remove('active');
+        document.getElementById('freeDrawBtn').classList.add('active');
+        isFreeDraw = true;
+      });
+    });
+
+    document.getElementById('brushSize').addEventListener('input', function() {
+      brushSize = parseInt(this.value);
+    });
+
+    document.getElementById('freeDrawBtn').addEventListener('click', function() {
+      isFreeDraw = true;
+      isErase = false;
+      selectedShape = null;
+      document.querySelectorAll('.tool-btn').forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+      document.querySelectorAll('.stamp-btn').forEach(b => b.classList.remove('active'));
+      canvas.style.cursor = 'crosshair';
+    });
+
+    document.getElementById('eraseBtn').addEventListener('click', function() {
+      isErase = true;
+      isFreeDraw = false;
+      selectedShape = null;
+      document.querySelectorAll('.tool-btn').forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+      document.querySelectorAll('.stamp-btn').forEach(b => b.classList.remove('active'));
+      canvas.style.cursor = 'cell';
+    });
+
+    document.getElementById('clearBtn').addEventListener('click', function() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      showToast('🗑️ تم مسح الرسمة!');
+    });
+
+    document.querySelectorAll('.stamp-btn').forEach(el => {
+      el.addEventListener('click', function() {
+        document.querySelectorAll('.stamp-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        selectedShape = this.dataset.shape;
+        isFreeDraw = false;
+        isErase = false;
+        document.querySelectorAll('.tool-btn').forEach(b => b.classList.remove('active'));
+        canvas.style.cursor = 'pointer';
+      });
+    });
+
+    function getCanvasCoords(e) {
+      const rect = canvas.getBoundingClientRect();
+      const scaleX = canvas.width / rect.width;
+      const scaleY = canvas.height / rect.height;
+      const x = (e.clientX - rect.left) * scaleX;
+      const y = (e.clientY - rect.top) * scaleY;
+      return { x, y };
+    }
+
+    function drawShape(shape, x, y, color, size) {
+      ctx.save();
+      ctx.fillStyle = color;
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 3;
+      const s = size || 40;
+
+      switch (shape) {
+        case 'square':
+          ctx.fillRect(x - s / 2, y - s / 2, s, s);
+          break;
+        case 'circle':
+          ctx.beginPath();
+          ctx.arc(x, y, s / 2, 0, Math.PI * 2);
+          ctx.fill();
+          break;
+        case 'heart':
+          ctx.beginPath();
+          ctx.moveTo(x, y + s / 4);
+          ctx.bezierCurveTo(x - s / 2, y - s / 4, x - s / 2, y - s / 1.5, x, y - s / 2.5);
+          ctx.bezierCurveTo(x + s / 2, y - s / 1.5, x + s / 2, y - s / 4, x, y + s / 4);
+          ctx.fill();
+          break;
+        case 'star':
+          const points = 5;
+          const outerR = s / 2;
+          const innerR = s / 4;
+          ctx.beginPath();
+          for (let i = 0; i < points * 2; i++) {
+            const r = i % 2 === 0 ? outerR : innerR;
+            const angle = (i * Math.PI) / points - Math.PI / 2;
+            const px = x + r * Math.cos(angle);
+            const py = y + r * Math.sin(angle);
+            i === 0 ? ctx.moveTo(px, py) : ctx.lineTo(px, py);
+          }
+          ctx.closePath();
+          ctx.fill();
+          break;
+        case 'triangle':
+          ctx.beginPath();
+          ctx.moveTo(x, y - s / 2);
+          ctx.lineTo(x - s / 2, y + s / 2);
+          ctx.lineTo(x + s / 2, y + s / 2);
+          ctx.closePath();
+          ctx.fill();
+          break;
+        case 'line':
+          ctx.beginPath();
+          ctx.moveTo(x - s / 2, y - s / 2);
+          ctx.lineTo(x + s / 2, y + s / 2);
+          ctx.stroke();
+          break;
+        case 'candle':
+          ctx.fillStyle = '#F27296';
+          ctx.fillRect(x - 4, y - 20, 8, 20);
+          ctx.fillStyle = '#FFD700';
+          ctx.beginPath();
+          ctx.arc(x, y - 22, 6, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.fillStyle = '#FF6B00';
+          ctx.beginPath();
+          ctx.arc(x, y - 26, 3, 0, Math.PI * 2);
+          ctx.fill();
+          break;
+        case 'flower':
+          const colors = ['#F27296', '#F6497F', '#F0B6DF', '#FFB6C1', '#FF69B4'];
+          for (let i = 0; i < 5; i++) {
+            const angle = (i / 5) * Math.PI * 2;
+            const px = x + 15 * Math.cos(angle);
+            const py = y + 15 * Math.sin(angle);
+            ctx.fillStyle = colors[i % colors.length];
+            ctx.beginPath();
+            ctx.arc(px, py, 10, 0, Math.PI * 2);
+            ctx.fill();
+          }
+          ctx.fillStyle = '#FFD700';
+          ctx.beginPath();
+          ctx.arc(x, y, 8, 0, Math.PI * 2);
+          ctx.fill();
+          break;
+        case 'butterfly':
+          ctx.fillStyle = color;
+          ctx.beginPath();
+          ctx.ellipse(x - 14, y, 12, 16, -0.3, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.beginPath();
+          ctx.ellipse(x + 14, y, 12, 16, 0.3, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.fillStyle = '#333';
+          ctx.fillRect(x - 2, y - 16, 4, 32);
+          ctx.beginPath();
+          ctx.arc(x, y - 18, 4, 0, Math.PI * 2);
+          ctx.fill();
+          break;
+        case 'rings':
+          for (let r = 6; r < s; r += 8) {
+            ctx.beginPath();
+            ctx.arc(x, y, r, 0, Math.PI * 2);
+            ctx.stroke();
+          }
+          break;
+        default:
+          break;
+      }
+      ctx.restore();
+    }
+
+    canvas.addEventListener('mousedown', (e) => {
+      const { x, y } = getCanvasCoords(e);
+      if (selectedShape) {
+        drawShape(selectedShape, x, y, currentColor, brushSize * 5);
+        return;
+      }
+      drawing = true;
+      lastX = x;
+      lastY = y;
+      if (isErase) {
+        ctx.save();
+        ctx.globalCompositeOperation = 'destination-out';
+        ctx.beginPath();
+        ctx.arc(x, y, brushSize * 2, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      }
+    });
+
+    canvas.addEventListener('mousemove', (e) => {
+      const { x, y } = getCanvasCoords(e);
+      if (!drawing || selectedShape) return;
+      if (isErase) {
+        ctx.save();
+        ctx.globalCompositeOperation = 'destination-out';
+        ctx.beginPath();
+        ctx.arc(x, y, brushSize * 2, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      } else if (isFreeDraw) {
+        ctx.beginPath();
+        ctx.moveTo(lastX, lastY);
+        ctx.lineTo(x, y);
+        ctx.strokeStyle = currentColor;
+        ctx.lineWidth = brushSize;
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+        ctx.stroke();
+        lastX = x;
+        lastY = y;
+      }
+    });
+
+    canvas.addEventListener('mouseup', () => { drawing = false; });
+    canvas.addEventListener('mouseleave', () => { drawing = false; });
+
+    canvas.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      const touch = e.touches[0];
+      const me = new MouseEvent('mousedown', { clientX: touch.clientX, clientY: touch.clientY });
+      canvas.dispatchEvent(me);
+    });
+    canvas.addEventListener('touchmove', (e) => {
+      e.preventDefault();
+      const touch = e.touches[0];
+      const me = new MouseEvent('mousemove', { clientX: touch.clientX, clientY: touch.clientY });
+      canvas.dispatchEvent(me);
+    });
+    canvas.addEventListener('touchend', (e) => {
+      e.preventDefault();
+      const me = new MouseEvent('mouseup', {});
+      canvas.dispatchEvent(me);
+    });
+
+    document.getElementById('saveDesignBtn').addEventListener('click', function() {
+      const dataUrl = canvas.toDataURL('image/png');
+      const link = document.createElement('a');
+      link.download = `sweetoria-design-${Date.now()}.png`;
+      link.href = dataUrl;
+      link.click();
+      document.getElementById('designStatus').textContent = '✅ تم حفظ التصميم!';
+      showToast('💾 تم حفظ تصميمك بنجاح!');
+      setTimeout(() => {
+        document.getElementById('designStatus').textContent = '';
+      }, 3000);
+    });
+
+    // ---------- COUNTRY CODE ----------
+    document.getElementById('countrySelect').addEventListener('change', function() {
+      const opt = this.options[this.selectedIndex];
+      const code = opt.dataset.code || '+20';
+      document.getElementById('countryCode').textContent = code;
+    });
+
+    // ---------- DELIVERY SELECTION ----------
+    document.querySelectorAll('.delivery-opt').forEach(el => {
+      el.addEventListener('click', function() {
+        document.querySelectorAll('.delivery-opt').forEach(d => d.classList.remove('selected'));
+        this.classList.add('selected');
+        updateCartUI();
+      });
+    });
+
+    // ---------- PAYMENT SELECTION ----------
+    document.querySelectorAll('.pay-opt').forEach(el => {
+      el.addEventListener('click', function() {
+        document.querySelectorAll('.pay-opt').forEach(p => p.classList.remove('selected'));
+        this.classList.add('selected');
+      });
+    });
+
+    // ---------- CERTIFICATE PREVIEW ----------
+    function updateCertificatePreview(name) {
+      const displayName = name.trim() || 'طفلي';
+      document.getElementById('previewChildName').textContent = '👶 ' + displayName;
+      document.getElementById('certDisplayName').textContent = displayName;
+      document.getElementById('certificatePreview').style.display = 'block';
+      const now = new Date();
+      const dateStr = now.toLocaleDateString('ar-EG');
+      document.getElementById('previewDate').textContent = dateStr;
+      document.getElementById('certDisplayDate').textContent = dateStr;
+    }
+
+    document.getElementById('childNameInput').addEventListener('input', function() {
+      updateCertificatePreview(this.value);
+    });
+
+    // ---------- PRINT CERTIFICATE ----------
+    document.getElementById('printCertificateBtn').addEventListener('click', function() {
+      const certSection = document.getElementById('certificatePreviewSection');
+      const printWindow = window.open('', '_blank', 'width=600,height=800');
+      const childName = document.getElementById('certDisplayName').textContent;
+      const date = document.getElementById('certDisplayDate').textContent;
+      printWindow.document.write(`
+        <html>
+          <head>
+            <title>شهادة Sweetoria</title>
+            <style>
+              @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;800&display=swap');
+              body { font-family: 'Cairo', sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; background: #FEF7F7; direction: rtl; }
+              .cert { 
+                max-width: 500px; 
+                padding: 40px; 
+                background: #fff; 
+                border: 4px solid #FFD700; 
+                border-radius: 24px; 
+                text-align: center; 
+                box-shadow: 0 10px 30px rgba(207,43,90,.15);
+              }
+              .cert .badge { font-size: 64px; }
+              .cert h2 { color: #CF2B5A; font-size: 22px; margin: 6px 0; }
+              .cert .name { font-size: 28px; font-weight: 800; color: #F6497F; padding: 8px 0; }
+              .cert p { color: #8a3a55; font-size: 14px; line-height: 1.7; max-width: 400px; margin: 8px auto; }
+              .cert .footer { display: flex; justify-content: space-between; margin-top: 16px; font-size: 12px; color: #a9748c; border-top: 2px solid #FEF7F7; padding-top: 14px; }
+              .cert .btn { display: none; }
+            </style>
+          </head>
+          <body>
+            <div class="cert">
+              <div class="badge">🏆</div>
+              <h2>شهادة تقدير من Sweetoria</h2>
+              <div class="name">👶 ${childName}</div>
+              <p>لأنك تستحق كل حلاوة في الدنيا، Sweetoria تقدم لك هذه الشهادة تقديرًا لحبك للحلويات وذوقك الرفيع.<br>⭐ نحن فخورون بك!</p>
+              <div class="footer">
+                <span>Sweetoria — Magic in Every Bite</span>
+                <span>${date}</span>
+              </div>
+            </div>
+            <script>
+              window.onload = function() { window.print(); }
+            <\/script>
+          </body>
+        </html>
+      `);
+      printWindow.document.close();
+    });
+
+    // ---------- ORDER FORM ----------
+    document.getElementById('orderForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const childName = document.getElementById('childNameInput').value.trim() || 'طفلي';
+      const fullName = this.querySelector('input[placeholder*="سارة"]')?.value || 'العميل';
+      showToast(`🎉 تم استلام طلبك بنجاح! شهادة "${childName}" هتكون مع الطلب.`);
+      cart = [];
+      updateCartUI();
+      updateCouponProgress();
+      this.reset();
+      document.getElementById('certificatePreview').style.display = 'none';
+      document.getElementById('certDisplayName').textContent = 'يوسف';
+    });
+
+    // ---------- VIDEO SECTION ----------
+    const videos = [
+      { title: 'اختيار المكونات', desc: 'بنختار أفضل أنواع الدقيق والسكر الطبيعي', emoji: '🌾' },
+      { title: 'الخلط والتجهيز', desc: 'خلط المكونات بالطريقة الصحيحة للحصول على قوام مثالي', emoji: '🥣' },
+      { title: 'التغليف والتوصيل', desc: 'تغليف احترافي يحافظ على الحلوى طازة', emoji: '📦' },
+    ];
+
+    const videoGrid = document.getElementById('videoGrid');
+    videoGrid.innerHTML = videos.map((v, i) => `
+      <div class="video-card" data-idx="${i}">
+        <div class="video-thumb" style="background:linear-gradient(135deg, var(--berry), var(--magenta));">
+          <span style="font-size:60px;">${v.emoji}</span>
+          <div class="play-circle">▶</div>
+        </div>
+        <div class="video-body">
+          <h4>${v.title}</h4>
+          <p>${v.desc}</p>
+          <span class="video-tag">🎬 فيديو</span>
+        </div>
+      </div>
+    `).join('');
+
+    videoGrid.querySelectorAll('.video-card').forEach(card => {
+      card.addEventListener('click', function() {
+        const idx = parseInt(this.dataset.idx);
+        const v = videos[idx];
+        document.getElementById('videoModalTitle').textContent = v.title;
+        document.getElementById('videoModal').classList.add('show');
+      });
+    });
+
+    document.getElementById('videoModal').addEventListener('click', function(e) {
+      if (e.target === this) this.classList.remove('show');
+    });
+
+    // ---------- INIT ----------
+    updateCartUI();
+    updateCouponProgress();
+    // Set default certificate name
+    document.getElementById('certDisplayName').textContent = 'يوسف';
+    const now = new Date();
+    document.getElementById('certDisplayDate').textContent = now.toLocaleDateString('ar-EG');
+
+    console.log('🍭 Sweetoria — Magic in Every Bite');
+    console.log('✨ Developed by: Israa Rabie');
+  </script>
+</body>
+</html>
